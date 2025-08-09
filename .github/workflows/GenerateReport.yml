@@ -1,0 +1,32 @@
+name: Generate Report
+
+on:
+  push:
+    branches:
+      - main 
+    paths:
+      - report/**
+
+jobs:
+  GenerateReport:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, 'QA - Technical') ||
+      contains(github.event.head_commit.message, 'QA - Grammar') ||
+      contains(github.event.head_commit.message, 'QA - Final')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ReportForge
+        run: | 
+          export ACTION="true"
+          wget $(curl -s https://api.github.com/repos/itz-d0dgy-2nd/ReportForge/releases | grep "browser_download_url" | grep "linux" | head -n 1 | cut -d '"' -f 4)
+          chmod +x amd64_linux_ReportForge
+          ./amd64_linux_ReportForge
+          
+      - name: Upload ReportForge Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: Report.*
