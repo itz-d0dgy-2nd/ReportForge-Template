@@ -49,7 +49,7 @@ This is a paragraph with **bold text**, *italic text*, <mark>highlighted</mark> 
 
 [Google](https://www.google.com)
 
-![This is the alt text for the troll img](report/Screenshots/troll.png)
+![This is the alt text for the troll img](Screenshots/troll.png)
 
 > This is a blockquote.
 
