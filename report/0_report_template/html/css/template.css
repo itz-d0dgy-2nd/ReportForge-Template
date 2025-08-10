@@ -441,13 +441,6 @@ img {
 figcaption {
 }
 /* Table Styles */
-
-
-#severity-3-0, #severity-4-0, #severity-4-1 { background-color: #a5d63a; }
-#severity-1-0, #severity-2-0, #severity-2-1, #severity-2-2, #severity-3-1, #severity-3-2, #severity-3-3, #severity-4-2, #severity-4-3, #severity-4-4 { background-color: #f2fa0c; }
-#severity-0-0, #severity-0-1, #severity-1-1, #severity-1-2, #severity-1-3, #severity-2-3, #severity-2-4, #severity-3-4 { background-color: #faae0a; }
-#severity-0-2, #severity-0-3, #severity-0-4, #severity-1-4 { background-color: #ff4a4a; }
-
 .finding-name { text-align: left;}
 
 .finding-status-Unresolved { font-weight: bold; color: #ff0000;}
