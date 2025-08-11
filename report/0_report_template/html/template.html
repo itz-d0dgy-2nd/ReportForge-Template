@@ -245,7 +245,7 @@
                             {{index $.Severity.Impacts $impact }}
                         </th>
                         {{ range $likelihood, $intersection := $intersections }}
-                        <td id="finding-severity-{{ index (index $.Severity.CalculatedMatrix $impact) $likelihood }}">{{ $intersection }}</td>
+                        <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $impact) $likelihood }}">{{ $intersection }}</td>
                         {{ end }}
                     </tr>
                     {{ end }}
