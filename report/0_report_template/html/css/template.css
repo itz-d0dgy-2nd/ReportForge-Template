@@ -232,6 +232,8 @@
     background-color: #290d32;
     height: 67.5pt;
     width: 67.5pt;
+    max-height: 67.5pt;
+    max-width: 67.5pt;
     color: white;
     font-weight: 400;
     font-style: light;
@@ -241,8 +243,10 @@
 
 .severity-section-assessment table tbody tr th {
     background-color: #290d32;
-    height: 67.5pt;
     width: 67.5pt;
+    height: 67.5pt;
+    max-height: 67.5pt;
+    max-width: 67.5pt;
     color: white;
     font-weight: 400;
     font-style: light;
@@ -250,10 +254,16 @@
     border: 1px solid white;
 }
 
-.severity-section-assessment table tbody tr td{
+.severity-section-assessment table tbody tr td {
     border: 1px solid white;
+    height: 67.5pt;
+    width: 67.5pt;
+    max-height: 67.5pt;
+    max-width: 67.5pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 /* ======== Findings Page ======== */
 
 .findings-section table {
