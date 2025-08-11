@@ -11,12 +11,11 @@ window.onload = function() {
         if (!(td instanceof Element)) return;
 
         const originalText = td.textContent.trim();
-        if (!originalText) return;  // skip empty cells
+        if (!originalText) return;
 
-        // Split by comma only, trim each item, filter out empty strings
         const items = originalText.split(',').map(item => item.trim()).filter(Boolean);
         const count = items.length;
 
-        td.textContent = `Findings: ${count}`;  // just the count of comma-separated items
+        td.textContent = `Findings: ${count}`; 
     });
 };
