@@ -4,18 +4,14 @@ window.onload = function() {
     caption.innerHTML = "<strong>Figure: </strong>" + img.alt;
     img.parentNode.insertBefore(caption, img.nextSibling);
   });
-}
 
-window.onload = function() {
-    document.querySelectorAll('.severity-section-assessment td').forEach(td => {
-        if (!(td instanceof Element)) return;
+  document.querySelectorAll('.severity-section-assessment td').forEach(td => {
+    if (!(td instanceof Element)) return;
+    const originalText = td.textContent.trim();
+    if (!originalText) return;
+    const items = originalText.split(',').map(item => item.trim()).filter(Boolean);
+    const count = items.length;
 
-        const originalText = td.textContent.trim();
-        if (!originalText) return;
-
-        const items = originalText.split(',').map(item => item.trim()).filter(Boolean);
-        const count = items.length;
-
-        td.textContent = `Findings: ${count}`; 
-    });
+    td.textContent = `Findings: ${count}`;
+  });
 };
