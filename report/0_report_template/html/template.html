@@ -78,7 +78,7 @@
                 <li><a href="#document-information">Document Information</a></li>
                 {{ end }}
 
-                {{ if .ReportSummaries }}
+                {{ if .Summaries }}
                 <li><a href="#execsum">Executive Summary</a></li>
                 <li><a href="#techsum">Technical Summary</a></li>
                 {{ end }}
@@ -173,10 +173,10 @@
         </section>
         {{ end }}
 
-        {{ if .ReportSummaries }}
+        {{ if .Summaries }}
         <section id="execsum" class="execsum-section">
             <h1>Executive Summary</h1>
-            {{ range .ReportSummaries }}
+            {{ range .Summaries }}
             {{ if eq .FileName "execsum" }}
                 {{ .Body }}
             {{ end }}
@@ -186,7 +186,7 @@
 
         <section id="techsum" class="techsum-section">
             <h1>Technical Summary</h1> 
-            {{ range .ReportSummaries }}
+            {{ range .Summaries }}
             {{ if eq .FileName "techsum"}}
                 {{ .Body }}
             {{ end }}
