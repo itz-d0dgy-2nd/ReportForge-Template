@@ -221,7 +221,7 @@
         </section>
         {{ end }}
 
-        {{ if .Severity }}
+        {{ if .Severity.SeverityAssessmentEnabled }}
         <section id="severity-assessment" class="severity-section-assessment">
             <h1>Findings Assessment</h1> 
             <table>
@@ -265,26 +265,42 @@
     
             <article id="{{ .FileName }}" class="finding">
                 <h2>{{ .Headers.FindingID }} - {{ .Headers.FindingTitle }}</h2>
+                {{ if $.Severity.SeverityAssessmentEnabled }}
                 <table>
                     <thead>
-                        <tr>
-                            <th>Finding Status</th>
-                            <th>Finding Impact</th>
-                            <th>Finding Likelihood</th>
-                            <th>Finding Severity</th>
-                        </tr>
+                    <tr>
+                        <th>Finding Status</th>
+                        <th>Finding Impact</th>
+                        <th>Finding Likelihood</th>
+                        <th>Finding Severity</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
-                            <td>{{ .Headers.FindingImpact }}</td>
-                            <td>{{ .Headers.FindingLikelihood }}</td>
-                            <td class="finding-severity-{{.Headers.FindingSeverity}}">
-                                {{ .Headers.FindingSeverity }}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
+                        <td>{{ .Headers.FindingImpact }}</td>
+                        <td>{{ .Headers.FindingLikelihood }}</td>
+                        <td class="finding-severity-{{.Headers.FindingSeverity}}">{{ .Headers.FindingSeverity }}</td>
+                    </tr>
                     </tbody>
                 </table>
+                {{ end }}
+                {{ if not $.Severity.SeverityAssessmentEnabled }}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Finding Status</th>
+                        <th>Finding Severity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
+                        <td class="finding-severity-{{.Headers.FindingSeverity}}">{{ .Headers.FindingSeverity }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                {{ end }}
                 {{ .Body }}
             </article>
             <div class="page-break"></div>
