@@ -42,27 +42,27 @@
     z-index: 1;
 }
 
-.frontmatter-section article {
+.metadata-section article {
     width: 50%;
     position: absolute;
     top: 60%;
     left: 5%;
 }
 
-.frontmatter-section article h1 {
+.metadata-section article h1 {
     padding-bottom: 5pt; 
     margin: 0;
     color: #c4a4f5;
 }
 
-.frontmatter-section article table {
+.metadata-section article table {
     width: 55%;
     margin-top: 30pt; 
     display: inline-block;
     color: #c4a4f5;
 }
 
-.frontmatter-section article table td {
+.metadata-section article table td {
     padding: 0 7.5pt 11.25pt 0;
     text-align: left;
     font-size: 9pt; 

@@ -1,6 +1,6 @@
 ---
-SuggestionID: SWEB1
-SuggestionName: suggestion_input_validation
+SuggestionID: D1 
+SuggestionName: input_validation
 SuggestionTitle: Input Validation of User Supplied Data
 SuggestionStatus: Unresolved
 SuggestionAuthor: JM
