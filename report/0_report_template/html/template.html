@@ -5,58 +5,58 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Template CSS / JS-->
-        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/css/template.css">
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/template.js"></script>
+        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/template.css">
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/template.js"></script>
 
         <!-- Google Fonts -->
-        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/css/font-exo2.css">
-        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/css/font-helvetica-neue.css">
+        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/exo2/font-exo2.css">
+        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/helvetica-neue/font-helvetica-neue.css">
 
         <!-- Prism.js Core -->
-        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/css/prism-tomorrow.min.css">
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/prism.min.js"></script>
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/prism-markup.min.js"></script>
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/prism-markup-templating.min.js"></script>
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/prism-php.min.js"></script>
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/prism-go.min.js"></script>
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/prism-python.min.js"></script>
-        <script rel="javascript" src="{{ .Path }}/0_report_template/html/js/prism-csharp.min.js"></script>
+        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/prismjs/prism-tomorrow.min.css">
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism.min.js"></script>
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-markup.min.js"></script>
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-markup-templating.min.js"></script>
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-php.min.js"></script>
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-go.min.js"></script>
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-python.min.js"></script>
+        <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-csharp.min.js"></script>
 
-        <title>{{ .Frontmatter.TargetInformation.TargetName }} - {{ .Frontmatter.TargetInformation.TargetTest }}</title>
+        <title>{{ .Metadata.TargetInformation.TargetName }} - {{ .Metadata.TargetInformation.TargetTest }}</title>
     </head>
 
     <body>
-        {{ if .Frontmatter }}
-        <section id="frontmatter" class="frontmatter-section">
+        {{ if .Metadata }}
+        <section id="metadata" class="metadata-section">
             <div class="front-page"></div>
             <div class="overlay-image"></div>
             <article>
-                <h1>{{ .Frontmatter.TargetInformation.TargetName }}</h1>
-                <h1>{{ .Frontmatter.TargetInformation.TargetTest }}</h1>
+                <h1>{{ .Metadata.TargetInformation.TargetName }}</h1>
+                <h1>{{ .Metadata.TargetInformation.TargetTest }}</h1>
                 <table>
                     <tbody>
                         <tr>
                             <td>Client: </td>
-                            <td>{{ .Frontmatter.Client }}</td>
+                            <td>{{ .Metadata.Client }}</td>
                         </tr>
                         
-                        {{ range .Frontmatter.DocumentInformation }}
+                        {{ range .Metadata.DocumentInformation }}
                         {{ if .DocumentCurrent }}
                         <tr>
                             <td>Document Status: </td>
-                            <td>{{ .DocumentMetadata.DocumentStatus }}</td>
+                            <td>{{ .DocumentVersioning.DocumentStatus }}</td>
                         </tr>
                         <tr>
                             <td>Document Version:  </td>
-                            <td>{{ .DocumentMetadata.DocumentVersion }}</td>
+                            <td>{{ .DocumentVersioning.DocumentVersion }}</td>
                         </tr>
                         <tr>
                             <td>Document Date: </td>
-                            <td>{{ .DocumentMetadata.DocumentDate }}</td>
+                            <td>{{ .DocumentVersioning.DocumentDate }}</td>
                         </tr>
                         <tr>
                             <td>Document Stage: </td>
-                            <td>{{ .DocumentMetadata.DocumentStage }}</td>
+                            <td>{{ .DocumentVersioning.DocumentStage }}</td>
                         </tr>
                         {{ end }}
                         {{ end }}
@@ -67,11 +67,11 @@
         </section>
         {{ end }}
 
-        {{ if .Frontmatter }}
+        {{ if .Metadata }}
         <section id="table-of-contents" class="table-of-contents-section">
             <h1>Table of Contents</h1>
             <ul>
-                {{ if .Frontmatter.DocumentInformation }}
+                {{ if .Metadata.DocumentInformation }}
                 <li><a href="#document-information">Document Information</a></li>
                 {{ end }}
 
@@ -122,7 +122,7 @@
         </section>
         {{ end }}
         
-        {{ if .Frontmatter }}
+        {{ if .Metadata }}
         <section id="document-information" class="document-information-section">
             <h1>Document Information</h1>
             <table>
@@ -136,13 +136,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ range .Frontmatter.DocumentInformation }}
+                    {{ range .Metadata.DocumentInformation }}
                     <tr>
-                        <td>{{ .DocumentMetadata.DocumentStatus }}</td>
-                        <td>{{ .DocumentMetadata.DocumentVersion }}</td>
-                        <td>{{ .DocumentMetadata.DocumentDate }}</td>
-                        <td>{{ .DocumentMetadata.DocumentStage }}</td>
-                        <td>{{ .DocumentMetadata.DocumentContributor }}</td>
+                        <td>{{ .DocumentVersioning.DocumentStatus }}</td>
+                        <td>{{ .DocumentVersioning.DocumentVersion }}</td>
+                        <td>{{ .DocumentVersioning.DocumentDate }}</td>
+                        <td>{{ .DocumentVersioning.DocumentStage }}</td>
+                        <td>{{ .DocumentVersioning.DocumentContributor }}</td>
                     </tr>
                     {{ end }}
                 </tbody>
@@ -157,7 +157,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ range .Frontmatter.StakeholderInformation }}
+                    {{ range .Metadata.StakeholderInformation }}
                     <tr>
                         <td>{{ .StakeholderName }}</td>
                         <td>{{ .StakeholderCompany }}</td>
@@ -174,7 +174,7 @@
         <section id="execsum" class="execsum-section">
             <h1>Executive Summary</h1>
             {{ range .Summaries }}
-            {{ if eq .FileName "execsum" }}
+            {{ if eq .FileName "execsum.md" }}
                 {{ .Body }}
             {{ end }}
             {{ end }}
@@ -184,7 +184,7 @@
         <section id="techsum" class="techsum-section">
             <h1>Technical Summary</h1> 
             {{ range .Summaries }}
-            {{ if eq .FileName "techsum"}}
+            {{ if eq .FileName "techsum.md"}}
                 {{ .Body }}
             {{ end }}
             {{ end }}
@@ -221,7 +221,7 @@
         </section>
         {{ end }}
 
-        {{ if .Severity }}
+        {{ if .Severity.ConductSeverityAssessment }}
         <section id="severity-assessment" class="severity-section-assessment">
             <h1>Findings Assessment</h1> 
             <table>
@@ -265,26 +265,42 @@
     
             <article id="{{ .FileName }}" class="finding">
                 <h2>{{ .Headers.FindingID }} - {{ .Headers.FindingTitle }}</h2>
+                {{ if $.Severity.ConductSeverityAssessment }}
                 <table>
                     <thead>
-                        <tr>
-                            <th>Finding Status</th>
-                            <th>Finding Impact</th>
-                            <th>Finding Likelihood</th>
-                            <th>Finding Severity</th>
-                        </tr>
+                    <tr>
+                        <th>Finding Status</th>
+                        <th>Finding Impact</th>
+                        <th>Finding Likelihood</th>
+                        <th>Finding Severity</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
-                            <td>{{ .Headers.FindingImpact }}</td>
-                            <td>{{ .Headers.FindingLikelihood }}</td>
-                            <td class="finding-severity-{{.Headers.FindingSeverity}}">
-                                {{ .Headers.FindingSeverity }}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
+                        <td>{{ .Headers.FindingImpact }}</td>
+                        <td>{{ .Headers.FindingLikelihood }}</td>
+                        <td class="finding-severity-{{.Headers.FindingSeverity}}">{{ .Headers.FindingSeverity }}</td>
+                    </tr>
                     </tbody>
                 </table>
+                {{ end }}
+                {{ if not $.Severity.ConductSeverityAssessment }}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Finding Status</th>
+                        <th>Finding Severity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
+                        <td class="finding-severity-{{.Headers.FindingSeverity}}">{{ .Headers.FindingSeverity }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                {{ end }}
                 {{ .Body }}
             </article>
             <div class="page-break"></div>
@@ -335,10 +351,10 @@
     </body>
 </html>
 
-{{ if .Frontmatter }}
-    {{ range .Frontmatter.DocumentInformation }}
+{{ if .Metadata }}
+    {{ range .Metadata.DocumentInformation }}
         {{ if .DocumentCurrent }}
-            {{ if eq .DocumentMetadata.DocumentStatus "Draft" }}
+            {{ if eq .DocumentVersioning.DocumentStatus "Draft" }}
                 <p class="AE3CEE3B46BEBFFE161D55F7AF5F97F1"></p>
             {{ end }}
         {{ end }}

@@ -1,10 +1,11 @@
 ---
-FindingID: Web-01
-FindingName: web_authn_broken_authentication
-FindingTitle: Insecure Authentication
+FindingID: B1
+FindingName: security headers
+FindingTitle: Missing Security Headers
 FindingStatus: Unresolved
-FindingImpact: Severe
-FindingLikelihood: Possible
+FindingImpact: Minimal
+FindingLikelihood: Almost Never
+FindingSeverity: Low 
 FindingAuthor: JM
 FindingReviewers: 
 ---

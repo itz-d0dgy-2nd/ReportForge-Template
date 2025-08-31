@@ -1,10 +1,11 @@
 ---
-FindingID: Mobile-01
-FindingName: mobile_authn_broken_mfa
-FindingTitle: Insecure MultiFactor Authentication (MFA)
+FindingID: A2 
+FindingName: example-finding-1
+FindingTitle: Android MinSDK 22
 FindingStatus: Resolved
-FindingImpact: Significant
+FindingImpact: Minimal 
 FindingLikelihood: Almost Certain
+FindingSeverity: Medium
 FindingAuthor: JM
 FindingReviewers: 
 ---

@@ -1,23 +1,24 @@
+ConductSeverityAssessment: true
+
 Impacts:
-  0: Severe
-  1: Significant
-  2: Moderate
-  3: Minor
-  4: Minimal
+  - "Severe"
+  - "Significant"
+  - "Moderate"
+  - "Minor"
+  - "Minimal"
 
 Likelihoods:
-  0: Almost Never
-  1: Possible but Unlikely
-  2: Possible
-  3: Highly Probable
-  4: Almost Certain
+  - "Almost Never"
+  - "Possible but Unlikely"
+  - "Possible"
+  - "Highly Probable"
+  - "Almost Certain"
 
-Matrix:
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]
+Scales: 
+  "Critical": "0"
+  "High":     "1" 
+  "Medium":   "2"
+  "Low":      "3"
 
 CalculatedMatrix: # Remember To Update CSS If You Change This :D (LN:449 - LN:452)
  - ["High", "High", "Critical", "Critical", "Critical"]
@@ -25,3 +26,10 @@ CalculatedMatrix: # Remember To Update CSS If You Change This :D (LN:449 - LN:45
  - ["Medium", "Medium", "Medium", "High", "High"]
  - ["Low", "Medium", "Medium", "Medium", "High"]
  - ["Low", "Low", "Medium", "Medium", "Medium"]
+
+Matrix:
+  - ["", "", "", "", ""]
+  - ["", "", "", "", ""]
+  - ["", "", "", "", ""]
+  - ["", "", "", "", ""]
+  - ["", "", "", "", ""]
