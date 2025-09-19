@@ -1,6 +1,6 @@
 ---
 FindingID: A1 
-FindingName: example-finding-1
+FindingName: example-finding-3
 FindingTitle: Arbitrary Code Execution
 FindingStatus: Resolved
 FindingImpact: Severe 

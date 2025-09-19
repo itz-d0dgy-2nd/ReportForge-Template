@@ -21,342 +21,351 @@
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-go.min.js"></script>
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-python.min.js"></script>
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-csharp.min.js"></script>
-
-        <title>{{ .Metadata.TargetInformation.TargetName }} - {{ .Metadata.TargetInformation.TargetTest }}</title>
+        
+    <title>{{ .Metadata.TargetInformation.TargetName }} - {{ .Metadata.TargetInformation.TargetTest }}</title>
     </head>
 
     <body>
-        {{ if .Metadata }}
-        <section id="metadata" class="metadata-section">
-            <div class="front-page"></div>
-            <div class="overlay-image"></div>
-            <article>
-                <h1>{{ .Metadata.TargetInformation.TargetName }}</h1>
-                <h1>{{ .Metadata.TargetInformation.TargetTest }}</h1>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Client: </td>
-                            <td>{{ .Metadata.Client }}</td>
-                        </tr>
-                        
-                        {{ range .Metadata.DocumentInformation }}
-                        {{ if .DocumentCurrent }}
-                        <tr>
-                            <td>Document Status: </td>
-                            <td>{{ .DocumentVersioning.DocumentStatus }}</td>
-                        </tr>
-                        <tr>
-                            <td>Document Version:  </td>
-                            <td>{{ .DocumentVersioning.DocumentVersion }}</td>
-                        </tr>
-                        <tr>
-                            <td>Document Date: </td>
-                            <td>{{ .DocumentVersioning.DocumentDate }}</td>
-                        </tr>
-                        <tr>
-                            <td>Document Stage: </td>
-                            <td>{{ .DocumentVersioning.DocumentStage }}</td>
-                        </tr>
-                        {{ end }}
-                        {{ end }}
-                    </tbody>
-                </table>
-            </article>
-            <div class="page-break"></div>
-        </section>
-        {{ end }}
+        <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
+        <main role="main" id="main-content">
+            {{ template "metadata" . }}
 
-        {{ if .Metadata }}
-        <section id="table-of-contents" class="table-of-contents-section">
-            <h1>Table of Contents</h1>
-            <ul>
-                {{ if .Metadata.DocumentInformation }}
-                <li><a href="#document-information">Document Information</a></li>
-                {{ end }}
+            {{ template "table-of-contents" . }}
 
-                {{ if .Summaries }}
-                <li><a href="#execsum">Executive Summary</a></li>
-                <li><a href="#techsum">Technical Summary</a></li>
-                {{ end }}
+            {{ template "document-information" . }}
 
-                {{ if .Findings }}
-                <li><a href="#findings-table">Findings Table</a></li>
-                {{ end }}
-
-                {{ if .Severity }}
-                <li><a href="#severity-assessment">Findings Assessment</a></li>
-                {{ end }}
-
-                {{ if .Findings }}
-                {{ $lastDirectory := "" }}
-                {{ range .Findings}}
-                {{ if ne .Directory $lastDirectory }} 
-                <li><a href="#findings-{{ .Directory }}">Findings - {{ .Directory }}</a></li>
-                {{ $lastDirectory = .Directory }} 
-                {{ end }}
-                {{ end }}
-                {{ end }}
-
-                {{ if .Suggestions }}
-                {{ $lastDirectory := "" }}
-                {{ range .Suggestions}}
-                {{ if ne .Directory $lastDirectory }} 
-                <li><a href="#suggestions-{{ .Directory }}">Suggestions - {{ .Directory }}</a></li>
-                {{ $lastDirectory = .Directory }} 
-                {{ end }}
-                {{ end }}
-                {{ end }}
-                
-                {{ if .Appendices }}
-                {{ $lastDirectory := "" }}
-                {{ range .Appendices}}
-                {{ if ne .Directory $lastDirectory }} 
-                <li><a href="#appendices-{{ .Directory }}">Appendices - {{ .Directory }}</a></li>
-                {{ $lastDirectory = .Directory }} 
-                {{ end }}
-                {{ end }}
-                {{ end }}
-            </ul>
-            <div class="page-break"></div>
-        </section>
-        {{ end }}
-        
-        {{ if .Metadata }}
-        <section id="document-information" class="document-information-section">
-            <h1>Document Information</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Status</th>
-                        <th>Version</th>
-                        <th>Date</th>
-                        <th>Stage</th>
-                        <th>Contributor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range .Metadata.DocumentInformation }}
-                    <tr>
-                        <td>{{ .DocumentVersioning.DocumentStatus }}</td>
-                        <td>{{ .DocumentVersioning.DocumentVersion }}</td>
-                        <td>{{ .DocumentVersioning.DocumentDate }}</td>
-                        <td>{{ .DocumentVersioning.DocumentStage }}</td>
-                        <td>{{ .DocumentVersioning.DocumentContributor }}</td>
-                    </tr>
-                    {{ end }}
-                </tbody>
-            </table>
-            <h1>Document Stakeholders</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Company</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range .Metadata.StakeholderInformation }}
-                    <tr>
-                        <td>{{ .StakeholderName }}</td>
-                        <td>{{ .StakeholderCompany }}</td>
-                        <td>{{ .StakeholderRole }}</td>
-                    </tr>
-                    {{ end }}
-                </tbody>
-            </table>
-            <div class="page-break"></div>
-        </section>
-        {{ end }}
-
-        {{ if .Summaries }}
-        <section id="execsum" class="execsum-section">
-            <h1>Executive Summary</h1>
-            {{ range .Summaries }}
-            {{ if eq .FileName "execsum.md" }}
-                {{ .Body }}
-            {{ end }}
-            {{ end }}
-            <div class="page-break"></div>
-        </section>
-
-        <section id="techsum" class="techsum-section">
-            <h1>Technical Summary</h1> 
-            {{ range .Summaries }}
-            {{ if eq .FileName "techsum.md"}}
-                {{ .Body }}
-            {{ end }}
-            {{ end }}
-            <div class="page-break"></div>
-        </section>
-        {{ end }}
-
-        {{ if .Findings }}
-        <section id="findings-table" class="findings-section-table">
-            <h1>Findings Table</h1> 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Finding ID</th>
-                        <th>Finding Name</th>
-                        <th>Finding Status</th>
-                        <th>Finding Severity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range .Findings }}
-                    <tr>
-                        <td><a href="#{{ .FileName }}">{{ .Headers.FindingID }}</a></td>
-                        <td class="finding-name">{{ .Headers.FindingTitle }}</td>
-                        <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
-                        <td class="finding-severity-{{.Headers.FindingSeverity}}">
-                            {{ .Headers.FindingSeverity }}
-                        </td>
-                    </tr>
-                    {{ end }}
-                </tbody>
-            </table>
-            <div class="page-break"></div>
-        </section>
-        {{ end }}
-
-        {{ if .Severity.ConductSeverityAssessment }}
-        <section id="severity-assessment" class="severity-section-assessment">
-            <h1>Findings Assessment</h1> 
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        {{ range $key, $value := .Severity.Likelihoods }}
-                        <th>
-                            {{ $value }}
-                        </th>
-                        {{ end }}
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ range $impact, $intersections := .Severity.Matrix }}
-                    <tr>
-                        <th>
-                            {{index $.Severity.Impacts $impact }}
-                        </th>
-                        {{ range $likelihood, $intersection := $intersections }}
-                        <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $impact) $likelihood }}">
-                            {{ $intersection }}
-                        </td>
-                        {{ end }}
-                    </tr>
-                    {{ end }}
-                </tbody>
-            </table>
-            <div class="page-break"></div>
-        </section>
-        {{ end }}
-
-        {{ if .Findings }}
-        {{ $lastDirectory := "" }}
-        {{ range .Findings }}
-        {{ if ne .Directory $lastDirectory }} 
-        {{ if ne $lastDirectory "" }}</section>{{ end }} 
-        <section id="findings-{{ .Directory }}" class="findings-section">
-            <h1>{{ .Directory }} Findings</h1> 
-            {{ end }}
-    
-            <article id="{{ .FileName }}" class="finding">
-                <h2>{{ .Headers.FindingID }} - {{ .Headers.FindingTitle }}</h2>
-                {{ if $.Severity.ConductSeverityAssessment }}
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Finding Status</th>
-                        <th>Finding Impact</th>
-                        <th>Finding Likelihood</th>
-                        <th>Finding Severity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
-                        <td>{{ .Headers.FindingImpact }}</td>
-                        <td>{{ .Headers.FindingLikelihood }}</td>
-                        <td class="finding-severity-{{.Headers.FindingSeverity}}">{{ .Headers.FindingSeverity }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                {{ end }}
-                {{ if not $.Severity.ConductSeverityAssessment }}
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Finding Status</th>
-                        <th>Finding Severity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
-                        <td class="finding-severity-{{.Headers.FindingSeverity}}">{{ .Headers.FindingSeverity }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                {{ end }}
-                {{ .Body }}
-            </article>
-            <div class="page-break"></div>
-            {{ $lastDirectory = .Directory }}
-        {{ end }}
-        </section>
-        {{ end }}
-
-        {{ if .Suggestions }}
-        {{ $lastDirectory := "" }}
-        {{ range .Suggestions }}
-        {{ if ne .Directory $lastDirectory }} 
-        {{ if ne $lastDirectory "" }}</section>{{ end }} 
-        <section id="suggestions-{{ .Directory }}" class="suggestions-section">
-            <h1>{{ .Directory }} Suggestions</h1> 
-            {{ end }}
-                
-            <article id="{{ .FileName }}" class="suggestion">
-                <h2>{{ .Headers.SuggestionID }} - {{ .Headers.SuggestionTitle }}</h2>
-                {{ .Body }}
-            </article>
+            {{ template "summaries" . }}
             
-            <div class="page-break"></div>
-            {{ $lastDirectory = .Directory }}
-        {{ end }}
-        </section>
-        {{ end }}
+            {{ template "table-of-findings" . }}
 
-        {{ if .Appendices }}
-        {{ $lastDirectory := "" }}
-        {{ range .Appendices }}
-        {{ if ne .Directory $lastDirectory }} 
-        {{ if ne $lastDirectory "" }}</section>{{ end }} 
-        <section id="appendices-{{ .Directory }}" class="appendices-section">
-            <h1>{{ .Directory }} Appendices</h1> 
-            {{ end }}
-                
-            <article id="{{ .FileName }}" class="appendices">
-                <h2>{{ .Headers.AppendixTitle }}</h2>
-                {{ .Body }}
-            </article>
-            
-            <div class="page-break"></div>
-            {{ $lastDirectory = .Directory }}
-        {{ end }}
-        </section>
-        {{ end }}
+            {{ template "severity-assessment" . }}
+
+            {{ template "findings" . }}
+
+            {{ template "suggestions" . }}
+
+            {{ template "appendices" . }}
+
+            {{ template "document-status-indicator" . }}
+        </main>
     </body>
 </html>
 
+<!-- Metadata Template -->
+{{ define "metadata" }}
 {{ if .Metadata }}
-    {{ range .Metadata.DocumentInformation }}
-        {{ if .DocumentCurrent }}
-            {{ if eq .DocumentVersioning.DocumentStatus "Draft" }}
-                <p class="AE3CEE3B46BEBFFE161D55F7AF5F97F1"></p>
+<section id="metadata" class="metadata-section" aria-label="Document Information - Latest">
+    <div class="front-page"></div>
+    <div class="overlay-image"></div>
+    <article>
+        <h1>{{ .Metadata.TargetInformation.TargetName }}</h1>
+        <h1>{{ .Metadata.TargetInformation.TargetTest }}</h1>
+        <table role="table" aria-label="Information Table - Latest">
+            <tbody>
+                <tr><th scope="row">Client: </th><td>{{ .Metadata.Client }}</td></tr>
+                {{ range .Metadata.DocumentInformation }}
+                {{ if .DocumentCurrent }}
+                <tr><th scope="row">Document Status: </th><td>{{ .DocumentVersioning.DocumentStatus }}</td></tr>
+                <tr><th scope="row">Document Version: </th><td>{{ .DocumentVersioning.DocumentVersion }}</td></tr>
+                <tr><th scope="row">Document Date: </th><td>{{ .DocumentVersioning.DocumentDate }}</td></tr>
+                <tr><th scope="row">Document Stage: </th><td>{{ .DocumentVersioning.DocumentStage }}</td></tr>
+                {{ end }}
+                {{ end }}
+            </tbody>
+        </table>
+    </article>
+    <div class="page-break"></div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Table of Contents Template -->
+{{ define "table-of-contents" }}
+{{ if .Metadata }}
+<section id="table-of-contents" class="table-of-contents-section" aria-label="Table of Contents">
+    <h1>Table of Contents</h1>
+    <nav role="navigation">
+        <ul>
+            {{ if .Metadata.DocumentInformation }}
+            <li><a href="#document-information" aria-label="Navigate to Document Information">Document Information</a></li>
             {{ end }}
-        {{ end }}
+
+            {{ if .Summaries }}
+            <li><a href="#execsum" aria-label="Navigate to Executive Summary">Executive Summary</a></li>
+            <li><a href="#techsum" aria-label="Navigate to Technical Summary">Technical Summary</a></li>
+            {{ end }}
+
+            {{ if .Findings }}
+            <li><a href="#table-of-findings" aria-label="Navigate to Findings Table">Findings Table</a></li>
+            {{ end }}
+
+            {{ if .Severity }}
+            <li><a href="#severity-assessment" aria-label="Navigate to Severity Assessment">Severity Assessment</a></li>
+            {{ end }}
+
+            {{ if .Findings }}
+            {{ $lastDirectory := "" }}
+            {{ range .Findings}}
+            {{ if ne .Directory $lastDirectory }} 
+            <li><a href="#findings-{{ .Directory }}" aria-label="Navigate to {{ .Directory }} Findings">Findings - {{ .Directory }}</a></li>
+            {{ $lastDirectory = .Directory }} 
+            {{ end }}
+            {{ end }}
+            {{ end }}
+
+            {{ if .Suggestions }}
+            {{ $lastDirectory := "" }}
+            {{ range .Suggestions}}
+            {{ if ne .Directory $lastDirectory }} 
+            <li><a href="#suggestions-{{ .Directory }}" aria-label="Navigate to {{ .Directory }} Suggestions">Suggestions - {{ .Directory }}</a></li>
+            {{ $lastDirectory = .Directory }} 
+            {{ end }}
+            {{ end }}
+            {{ end }}
+                
+            {{ if .Appendices }}
+            {{ $lastDirectory := "" }}
+            {{ range .Appendices}}
+            {{ if ne .Directory $lastDirectory }} 
+            <li><a href="#appendices-{{ .Directory }}" aria-label="Navigate to {{ .Directory }} Appendices">Appendices - {{ .Directory }}</a></li>
+            {{ $lastDirectory = .Directory }} 
+            {{ end }}
+            {{ end }}
+            {{ end }}
+        </ul>
+    </nav>
+    <div class="page-break"></div>
+</section>
+{{ end }}
+{{ end }}
+
+
+<!-- Document Information Template -->
+{{ define "document-information" }}
+{{ if .Metadata }}
+<section id="document-information" class="document-information-section" aria-label="Document Information - Complete">
+    <h1>Document Information</h1>
+    <table role="table" aria-label="Information Table - Complete">
+        <thead>
+            <tr>
+                <th scope="col">Status</th>
+                <th scope="col">Version</th>
+                <th scope="col">Date</th>
+                <th scope="col">Stage</th>
+                <th scope="col">Contributor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .Metadata.DocumentInformation }}
+            <tr>
+                <td>{{ .DocumentVersioning.DocumentStatus }}</td>
+                <td>{{ .DocumentVersioning.DocumentVersion }}</td>
+                <td>{{ .DocumentVersioning.DocumentDate }}</td>
+                <td>{{ .DocumentVersioning.DocumentStage }}</td>
+                <td>{{ .DocumentVersioning.DocumentContributor }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <h1>Document Stakeholders</h1>
+    <table role="table" aria-label="Stakeholders Table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Company</th>
+                <th scope="col">Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .Metadata.StakeholderInformation }}
+            <tr>
+                <td>{{ .StakeholderName }}</td>
+                <td>{{ .StakeholderCompany }}</td>
+                <td>{{ .StakeholderRole }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <div class="page-break"></div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Summaries Template -->
+{{ define "summaries" }}
+{{ if .Summaries }}
+<section id="execsum" class="execsum-section" aria-label="Executive Summary">
+    <h1>Executive Summary</h1>
+    {{ range .Summaries }}
+    {{ if eq .FileName "execsum.md" }}{{ .Body }}{{ end }}
     {{ end }}
+    <div class="page-break"></div>
+</section>
+
+<section id="techsum" class="techsum-section" aria-label="Technical Summary">
+    <h1>Technical Summary</h1>
+    {{ range .Summaries }}
+    {{ if eq .FileName "techsum.md" }}{{ .Body }}{{ end }}
+    {{ end }}
+    <div class="page-break"></div>
+</section>
+{{ end }}
+{{ end }}
+
+
+<!-- Summary Table Template -->
+{{ define "table-of-findings" }}
+{{ if .Findings }}
+<section id="table-of-findings" class="table-of-findings-section" aria-label="Table of Findings">
+    <h1>Findings Table</h1> 
+    <table role="table">
+        <thead>
+            <tr>
+                <th scope="col">Finding ID</th>
+                <th scope="col">Finding Name</th>
+                <th scope="col">Finding Status</th>
+                <th scope="col">Finding Severity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .Findings }}
+            <tr>
+                <td><a href="#{{ .FileName }}" aria-label="Navigate to detailed finding {{ .Headers.FindingID }}">{{ .Headers.FindingID }}</a></td>
+                <td class="finding-name">{{ .Headers.FindingTitle }}</td>
+                <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
+                <td class="finding-severity-{{.Headers.FindingSeverity}}"> {{ .Headers.FindingSeverity }} </td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <div class="page-break"></div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Severity Assessment Template -->
+{{ define "severity-assessment" }}
+{{ if .Severity.ConductSeverityAssessment }}
+<section id="severity-assessment" class="severity-section-assessment" aria-label="Severity Assessment">
+    <h1>Findings Assessment</h1> 
+    <table role="table" aria-label="Severity Assessment Table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                {{ range .Severity.Likelihoods }}<th scope="col">{{ . }}</th>{{ end }}
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $impact, $intersections := .Severity.Matrix }}
+            <tr>
+                <th scope="row">{{ index $.Severity.Impacts $impact }}</th>
+                {{ range $likelihood, $intersection := $intersections }}
+                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $impact) $likelihood }}">{{ $intersection }}</td>
+                {{ end }}
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    <div class="page-break"></div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Findings Template -->
+{{ define "findings" }}
+{{ if .Findings }}
+{{ $lastDirectory := "" }}
+{{ range .Findings }}
+{{ if ne .Directory $lastDirectory }}
+{{ if ne $lastDirectory "" }}</section>{{ end }}
+<section id="findings-{{ .Directory }}" class="findings-section" aria-label="Findings - {{ .Directory }}">
+    <h1>{{ .Directory }} Findings</h1>
+{{ end }}
+    
+    <article id="{{ .FileName }}" class="finding" aria-label="Finding - {{ .Headers.FindingTitle }}">
+        <h2>{{ .Headers.FindingID }} - {{ .Headers.FindingTitle }}</h2>
+        <table role="table" aria-label="Finding Table">
+            <thead>
+                <tr>
+                    <th scope="col">Finding Status</th>
+                    {{ if $.Severity.ConductSeverityAssessment }}
+                        <th scope="col">Finding Impact</th>
+                        <th scope="col">Finding Likelihood</th>
+                    {{ end }}
+                    <th scope="col">Finding Severity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="finding-status-{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
+                    {{ if $.Severity.ConductSeverityAssessment }}
+                        <td>{{ .Headers.FindingImpact }}</td>
+                        <td>{{ .Headers.FindingLikelihood }}</td>
+                    {{ end }}
+                    <td class="finding-severity-{{ .Headers.FindingSeverity }}">{{ .Headers.FindingSeverity }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {{ .Body }}
+    </article>
+    <div class="page-break"></div>
+    {{ $lastDirectory = .Directory }}
+    {{ end }}
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Suggestions Template -->
+{{ define "suggestions" }}
+{{ if .Suggestions }}
+{{ $lastDirectory := "" }}
+{{ range .Suggestions }}
+{{ if ne .Directory $lastDirectory }} 
+{{ if ne $lastDirectory "" }}</section>{{ end }} 
+<section id="suggestions-{{ .Directory }}" class="suggestions-section" aria-label="Suggestions - {{ .Directory }}">
+    <h1>{{ .Directory }} Suggestions</h1> 
+    {{ end }}
+    <article id="{{ .FileName }}" class="suggestion" aria-label="Suggestion - {{ .Headers.SuggestionTitle }}">
+        <h2>{{ .Headers.SuggestionID }} - {{ .Headers.SuggestionTitle }}</h2>
+        {{ .Body }}
+    </article>
+    <div class="page-break"></div>
+    {{ $lastDirectory = .Directory }}
+{{ end }}
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Appendices Template -->
+{{ define "appendices" }}
+{{ if .Appendices }}
+{{ $lastDirectory := "" }}
+{{ range .Appendices }}
+{{ if ne .Directory $lastDirectory }} 
+{{ if ne $lastDirectory "" }}</section>{{ end }} 
+<section id="appendices-{{ .Directory }}" class="appendices-section" aria-label="Appendices - {{ .Directory }}">
+    <h1>{{ .Directory }} Appendices</h1> 
+    {{ end }}
+    <article id="{{ .FileName }}" class="appendices" aria-label="Appendix - {{ .Headers.AppendixTitle }}">
+        <h2>{{ .Headers.AppendixTitle }}</h2>
+        {{ .Body }}
+    </article>
+    <div class="page-break"></div>
+    {{ $lastDirectory = .Directory }}
+{{ end }}
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Document Status Indicator Template -->
+{{ define "document-status-indicator" }}
+{{ if .Metadata }}
+{{ range .Metadata.DocumentInformation }}
+{{ if .DocumentCurrent }}
+{{ if eq .DocumentVersioning.DocumentStatus "Draft" }}
+<p class="AE3CEE3B46BEBFFE161D55F7AF5F97F1"></p>
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
 {{ end }}

@@ -17,9 +17,13 @@
             content: ""; 
         }
     }
+
+    /* .table-of-contents-section a::after { 
+        content: leader(".") target-counter(attr(href), page);
+    } */
 }
 
-/* ======== Front Matter Page ======== */
+/* ======== Metadata Page ======== */
 
 .front-page {
     background: url("../images/page-front.png") no-repeat center center;
@@ -62,7 +66,7 @@
     color: #c4a4f5;
 }
 
-.metadata-section article table td {
+.metadata-section article table th, .metadata-section article table td {
     padding: 0 7.5pt 11.25pt 0;
     text-align: left;
     font-size: 9pt; 
@@ -88,16 +92,10 @@
     padding-bottom: 3.75pt;
 }
 
-/* .table-of-contents-section a::after { 
-    content: leader(".") target-counter(attr(href), page) !important;
-} */
-
 .table-of-contents-section a:hover {
     background-color: yellow;
     cursor: pointer;
 }
-
-
 
 /* ======== Document Information Page ======== */
 
@@ -188,7 +186,7 @@
 
 /* ======== Finding Summary Page ======== */
 
-.findings-section-table table {
+.table-of-findings-section table {
     border-spacing: 1;
     border-collapse: collapse;
     background: white;
@@ -199,18 +197,18 @@
     text-align: center;
 }
 
-.findings-section-table table thead tr{
+.table-of-findings-section table thead tr{
     height: 30pt;
     background-color: #290d32;
 }
 
-.findings-section-table table thead tr th {
+.table-of-findings-section table thead tr th {
     color: #fff;
     font-weight: 400;
     font-style: light;
 }
 
-.findings-section-table table tbody tr {
+.table-of-findings-section table tbody tr {
     height: 30pt;
     background-color: #f5f5f5;
 }
@@ -512,4 +510,24 @@ retest_not_fixed {
   white-space: nowrap;
   font-weight: bold;
   font-family: Arial, sans-serif;
+}
+
+.skip-link {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 8px 16px;
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    z-index: 9999;
+    font-weight: bold;
+}
+
+.skip-link:focus,
+.skip-link:active {
+    clip: auto;
+    top: 6px;
+    left: 6px;
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
 }

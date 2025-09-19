@@ -1,9 +1,4 @@
 window.onload = function() {
-  document.querySelectorAll('img').forEach(img => {
-    const caption = document.createElement('figcaption');
-    caption.innerHTML = "<strong>Figure: </strong>" + img.alt;
-    img.parentNode.insertBefore(caption, img.nextSibling);
-  });
 
   document.querySelectorAll('.severity-section-assessment td').forEach(tableData => {
     const cellText = tableData.textContent.trim();
@@ -15,4 +10,11 @@ window.onload = function() {
       tableData.textContent = `Findings: ${itemCount}`;
     }
   });
+
+  document.querySelectorAll('img').forEach(img => {
+    const caption = document.createElement('figcaption');
+    caption.innerHTML = "<strong>Figure: </strong>" + img.alt;
+    img.parentNode.insertBefore(caption, img.nextSibling);
+  });
+
 };
