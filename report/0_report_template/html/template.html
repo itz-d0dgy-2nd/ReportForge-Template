@@ -21,8 +21,8 @@
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-go.min.js"></script>
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-python.min.js"></script>
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-csharp.min.js"></script>
-
-        <title>{{ .Metadata.TargetInformation.TargetName }} - {{ .Metadata.TargetInformation.TargetTest }}</title>
+        
+    <title>{{ .Metadata.TargetInformation.TargetName }} - {{ .Metadata.TargetInformation.TargetTest }}</title>
     </head>
 
     <body>
@@ -96,7 +96,7 @@
             {{ end }}
 
             {{ if .Findings }}
-            <li><a href="#findings-table" aria-label="Navigate to Findings Table">Findings Table</a></li>
+            <li><a href="#table-of-findings" aria-label="Navigate to Findings Table">Findings Table</a></li>
             {{ end }}
 
             {{ if .Severity }}

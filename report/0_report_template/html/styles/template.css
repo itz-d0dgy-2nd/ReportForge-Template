@@ -17,6 +17,10 @@
             content: ""; 
         }
     }
+
+    /* .table-of-contents-section a::after { 
+        content: leader(".") target-counter(attr(href), page);
+    } */
 }
 
 /* ======== Metadata Page ======== */
@@ -88,16 +92,10 @@
     padding-bottom: 3.75pt;
 }
 
-/* .table-of-contents-section a::after { 
-    content: leader(".") target-counter(attr(href), page) !important;
-} */
-
 .table-of-contents-section a:hover {
     background-color: yellow;
     cursor: pointer;
 }
-
-
 
 /* ======== Document Information Page ======== */
 
