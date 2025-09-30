@@ -14,22 +14,22 @@ DocumentInformation:
 - DocumentCurrent: false
   DocumentVersioning:
     DocumentStatus: Draft
-    DocumentVersion: '0.2'
-    DocumentDate: '2025-01-02'
+    DocumentVersion: 0.2
+    DocumentDate: 2025-01-02
     DocumentStage: QA - Technical
     DocumentContributor: Ben Miles
 - DocumentCurrent: false
   DocumentVersioning:
     DocumentStatus: Draft
-    DocumentVersion: '0.3'
-    DocumentDate: '2025-01-03'
+    DocumentVersion: 0.3
+    DocumentDate: 2025-01-03
     DocumentStage: QA - Grammar
     DocumentContributor: Elf Eldridge
 - DocumentCurrent: true
   DocumentVersioning:
     DocumentStatus: Release
-    DocumentVersion: '1.0'
-    DocumentDate: '2025-01-04'
+    DocumentVersion: 1.0
+    DocumentDate: 2025-01-04
     DocumentStage: QA - Final
     DocumentContributor: TC
 StakeholderInformation:
