@@ -3,14 +3,12 @@ Client: Google
 TargetInformation:
   TargetName: Google Search
   TargetTest: Multiple Assessment
-  TargetAsset0: google.com
-  TargetAsset1: Google APK
 DocumentInformation:
 - DocumentCurrent: false
   DocumentVersioning:
     DocumentStatus: Draft
-    DocumentVersion: '0.1'
-    DocumentDate: '2025-01-01'
+    DocumentVersion: 0.1
+    DocumentDate: 2025-01-01
     DocumentStage: Initial findings
     DocumentContributor: Jack Moran
 - DocumentCurrent: false
@@ -40,4 +38,7 @@ StakeholderInformation:
   StakeholderCompany: Secrets Inc
 - StakeholderName: Alice
   StakeholderRole: Project Manager
-  StakeholderCompany: Secrets? Inc
+  StakeholderCompany: Secrets? 
+CustomVariables:
+  Asset0: Google Web Application
+  Asset1: Google APK
