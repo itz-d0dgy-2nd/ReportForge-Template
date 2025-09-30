@@ -15,7 +15,7 @@ FindingReviewers:
 <retest_fixed>
 
 - Client Variable: !Client
-- Target Variable: !TargetAsset0 || !TargetAsset1
+- Target Variable: !Asset0 || !Asset1
   -  First un-ordered Subitem
   - Second un-ordered Subitem 
 - Third un-ordered item
