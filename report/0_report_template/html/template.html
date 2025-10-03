@@ -252,15 +252,25 @@
         <thead>
             <tr>
                 <th scope="col"></th>
-                {{ range .Severity.Likelihoods }}<th scope="col">{{ . }}</th>{{ end }}
+                {{ if $.Severity.FlipSeverityAssessment }}
+                    {{ range .Severity.Impacts }}<th scope="col">{{ . }}</th>{{ end }}
+                {{ else }}
+                    {{ range .Severity.Likelihoods }}<th scope="col">{{ . }}</th>{{ end }}
+                {{ end }}
             </tr>
         </thead>
         <tbody>
-            {{ range $impact, $intersections := .Severity.Matrix }}
+            {{ range $rowIndex, $intersections := .Severity.Matrix }}
             <tr>
-                <th scope="row">{{ index $.Severity.Impacts $impact }}</th>
-                {{ range $likelihood, $intersection := $intersections }}
-                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $impact) $likelihood }}">{{ $intersection }}</td>
+                <th scope="row">
+                    {{ if $.Severity.FlipSeverityAssessment }}
+                        {{ index $.Severity.Likelihoods $rowIndex }}
+                    {{ else }}
+                        {{ index $.Severity.Impacts $rowIndex }}
+                    {{ end }}
+                </th>
+                {{ range $columnIndex, $intersection := $intersections }}
+                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">{{ $intersection }}</td>
                 {{ end }}
             </tr>
             {{ end }}
