@@ -1,7 +1,7 @@
 ConductSeverityAssessment: true
 FlipSeverityAssessment: true
 
-# Impact labels for the severity matrix (displayed as row/column headers depending on FlipSeverityAssessment)
+# Impact labels for the severity matrix (displayed as row/column headers depending on FlipSeverityAssessment) and findings
 # - Displayed in the severity assessment table in the report
 # - Defines and controls the impact names used in the findings markdown YAML front matter
 Impacts:
@@ -11,7 +11,7 @@ Impacts:
   - "Minor"
   - "Minimal"
 
-# Likelihood labels for the severity matrix (displayed as column/row headers depending on FlipSeverityAssessment)
+# Likelihood labels for the severity matrix (displayed as row/column headers depending on FlipSeverityAssessment) and findings
 # - Displayed in the severity assessment table in the report
 # - Defines and controls the impact names used in the findings markdown YAML front matter
 Likelihoods:
@@ -28,7 +28,9 @@ Scales:
   "Low":      "3"
 
 # Calculated severity matrix is used to determine finding severity based on the intersection of impact and likelihood
-# - It Controls the severity matrix layout in the reports severity assessment
+# - Displayed in the severity assessment table in the report
+# - Defines and controls the severity matrix layout in the reports severity assessment
+# - Defines and controls the severity names used in the findings markdown YAML front matter
 # - Severity names (Low, Medium, High, Critical) map to CSS classes for colour styling
 #   If these severity names change, you must update the corresponding CSS classes at LN:457 - LN:460 in template.css
 #   .finding-severity-Low { background-color: #a5d63a; }
