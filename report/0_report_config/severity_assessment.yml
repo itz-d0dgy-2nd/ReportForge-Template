@@ -1,5 +1,5 @@
 ConductSeverityAssessment: true
-FlipSeverityAssessment: true
+FlipSeverityAssessment: false
 
 # Impact labels for the severity matrix (displayed as row/column headers depending on FlipSeverityAssessment) and findings
 # - Displayed in the severity assessment table in the report
