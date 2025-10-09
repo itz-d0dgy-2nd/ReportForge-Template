@@ -270,7 +270,13 @@
                     {{ end }}
                 </th>
                 {{ range $columnIndex, $intersection := $intersections }}
-                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">{{ $intersection }}</td>
+                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">
+                    {{ range $.Findings }}
+                        {{ if eq .Headers.FindingID $intersection }}
+                            <a href="#{{ .FileName }}">{{ $intersection }}</a>
+                        {{ end }}
+                    {{ end }}
+                </td>
                 {{ end }}
             </tr>
             {{ end }}
