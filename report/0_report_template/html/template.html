@@ -180,7 +180,7 @@
             {{ range .Metadata.StakeholderInformation }}
             <tr>
                 <td>{{ .StakeholderName }}</td>
-                <td>{{ .StakeholderCompany }}</td>
+                <td>{{ if .StakeholderCompany }}{{ if ne .StakeholderCompany $.Metadata.Client }}{{ .StakeholderCompany }}{{ else }}{{ $.Metadata.Client }}{{ end }}{{ else }}{{ $.Metadata.Client }}{{ end }}</td>
                 <td>{{ .StakeholderRole }}</td>
             </tr>
             {{ end }}
