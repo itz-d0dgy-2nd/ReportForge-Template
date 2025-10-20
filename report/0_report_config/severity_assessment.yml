@@ -22,10 +22,10 @@ Likelihoods:
   - "Almost Certain"
 
 Scales: 
-  "Critical": "0"
-  "High":     "1" 
-  "Medium":   "2"
-  "Low":      "3"
+  "Critical": 0
+  "High":     1 
+  "Medium":   2
+  "Low":      3
 
 # Calculated severity matrix is used to determine finding severity based on the intersection of impact and likelihood
 # - Displayed in the severity assessment table in the report

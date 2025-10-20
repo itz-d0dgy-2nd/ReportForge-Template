@@ -28,32 +28,23 @@
     <body>
         <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to main content</a>
         <main role="main" id="main-content">
-            {{ template "metadata" . }}
-
-            {{ template "table-of-contents" . }}
-
-            {{ template "document-information" . }}
-
-            {{ template "summaries" . }}
-            
-            {{ template "table-of-findings" . }}
-
-            {{ template "severity-assessment" . }}
-
-            {{ template "findings" . }}
-
-            {{ template "suggestions" . }}
-
-            {{ template "appendices" . }}
-
-            {{ template "document-status-indicator" . }}
+            {{- template "metadata" . }}
+            {{- template "table-of-contents" . }}
+            {{- template "document-information" . }}
+            {{- template "summaries" . }}
+            {{- template "table-of-findings" . }}
+            {{- template "severity-assessment" . }}
+            {{- template "findings" . }}
+            {{- template "suggestions" . }}
+            {{- template "appendices" . }}
+            {{- template "document-status-indicator" . }}
         </main>
     </body>
 </html>
 
 <!-- Metadata Template -->
-{{ define "metadata" }}
-{{ if .Metadata }}
+{{- define "metadata" }}
+{{- if .Metadata }}
 <section id="metadata" class="metadata-section" aria-label="Document Information - Latest">
     <div class="front-page"></div>
     <div class="overlay-image"></div>
@@ -63,86 +54,79 @@
         <table role="table" aria-label="Information Table - Latest">
             <tbody>
                 <tr><th scope="row">Client: </th><td>{{ .Metadata.Client }}</td></tr>
-                {{ range .Metadata.DocumentInformation }}
-                {{ if .DocumentCurrent }}
+                {{- range .Metadata.DocumentInformation }}
+                {{- if .DocumentCurrent }}
                 <tr><th scope="row">Document Status: </th><td>{{ .DocumentVersioning.DocumentStatus }}</td></tr>
                 <tr><th scope="row">Document Version: </th><td>{{ .DocumentVersioning.DocumentVersion }}</td></tr>
                 <tr><th scope="row">Document Date: </th><td>{{ .DocumentVersioning.DocumentDate }}</td></tr>
                 <tr><th scope="row">Document Stage: </th><td>{{ .DocumentVersioning.DocumentStage }}</td></tr>
-                {{ end }}
-                {{ end }}
+                {{- end }}
+                {{- end }}
             </tbody>
         </table>
     </article>
     <div class="page-break"></div>
 </section>
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
 
 <!-- Table of Contents Template -->
-{{ define "table-of-contents" }}
-{{ if .Metadata }}
+{{- define "table-of-contents" }}
+{{- if .Metadata }}
 <section id="table-of-contents" class="table-of-contents-section" aria-label="Table of Contents">
     <h1>Table of Contents</h1>
     <nav role="navigation">
         <ul>
-            {{ if .Metadata.DocumentInformation }}
+            {{- if .Metadata.DocumentInformation }}
             <li><a href="#document-information" aria-label="Navigate to Document Information">Document Information</a></li>
-            {{ end }}
-
-            {{ if .Summaries }}
+            {{- end }}
+            {{- if .Summaries }}
             <li><a href="#execsum" aria-label="Navigate to Executive Summary">Executive Summary</a></li>
             <li><a href="#techsum" aria-label="Navigate to Technical Summary">Technical Summary</a></li>
-            {{ end }}
-
-            {{ if .Findings }}
+            {{- end }}
+            {{- if .Findings }}
             <li><a href="#table-of-findings" aria-label="Navigate to Findings Table">Findings Table</a></li>
-            {{ end }}
-
-            {{ if .Severity }}
+            {{- end }}
+            {{- if .Severity }}
             <li><a href="#severity-assessment" aria-label="Navigate to Severity Assessment">Severity Assessment</a></li>
-            {{ end }}
-
-            {{ if .Findings }}
-            {{ $lastDirectory := "" }}
-            {{ range .Findings}}
-            {{ if ne .Directory $lastDirectory }} 
+            {{- end }}
+            {{- if .Findings }}
+            {{- $lastDirectory := "" }}
+            {{- range .Findings }}
+            {{- if ne .Directory $lastDirectory }}
             <li><a href="#findings-{{ .Directory }}" aria-label="Navigate to {{ .Directory }} Findings">Findings - {{ .Directory }}</a></li>
-            {{ $lastDirectory = .Directory }} 
-            {{ end }}
-            {{ end }}
-            {{ end }}
-
-            {{ if .Suggestions }}
-            {{ $lastDirectory := "" }}
-            {{ range .Suggestions}}
-            {{ if ne .Directory $lastDirectory }} 
+            {{- $lastDirectory = .Directory }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if .Suggestions }}
+            {{- $lastDirectory := "" }}
+            {{- range .Suggestions }}
+            {{- if ne .Directory $lastDirectory }}
             <li><a href="#suggestions-{{ .Directory }}" aria-label="Navigate to {{ .Directory }} Suggestions">Suggestions - {{ .Directory }}</a></li>
-            {{ $lastDirectory = .Directory }} 
-            {{ end }}
-            {{ end }}
-            {{ end }}
-                
-            {{ if .Appendices }}
-            {{ $lastDirectory := "" }}
-            {{ range .Appendices}}
-            {{ if ne .Directory $lastDirectory }} 
+            {{- $lastDirectory = .Directory }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if .Appendices }}
+            {{- $lastDirectory := "" }}
+            {{- range .Appendices }}
+            {{- if ne .Directory $lastDirectory }}
             <li><a href="#appendices-{{ .Directory }}" aria-label="Navigate to {{ .Directory }} Appendices">Appendices - {{ .Directory }}</a></li>
-            {{ $lastDirectory = .Directory }} 
-            {{ end }}
-            {{ end }}
-            {{ end }}
+            {{- $lastDirectory = .Directory }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
         </ul>
     </nav>
     <div class="page-break"></div>
 </section>
-{{ end }}
-{{ end }}
-
+{{- end }}
+{{- end }}
 
 <!-- Document Information Template -->
-{{ define "document-information" }}
-{{ if .Metadata }}
+{{- define "document-information" }}
+{{- if .Metadata }}
 <section id="document-information" class="document-information-section" aria-label="Document Information - Complete">
     <h1>Document Information</h1>
     <table role="table" aria-label="Information Table - Complete">
@@ -156,7 +140,7 @@
             </tr>
         </thead>
         <tbody>
-            {{ range .Metadata.DocumentInformation }}
+            {{- range .Metadata.DocumentInformation }}
             <tr>
                 <td>{{ .DocumentVersioning.DocumentStatus }}</td>
                 <td>{{ .DocumentVersioning.DocumentVersion }}</td>
@@ -164,7 +148,7 @@
                 <td>{{ .DocumentVersioning.DocumentStage }}</td>
                 <td>{{ .DocumentVersioning.DocumentContributor }}</td>
             </tr>
-            {{ end }}
+            {{- end }}
         </tbody>
     </table>
     <h1>Document Stakeholders</h1>
@@ -177,45 +161,44 @@
             </tr>
         </thead>
         <tbody>
-            {{ range .Metadata.StakeholderInformation }}
+            {{- range .Metadata.StakeholderInformation }}
             <tr>
                 <td>{{ .StakeholderName }}</td>
-                <td>{{ if .StakeholderCompany }}{{ if ne .StakeholderCompany $.Metadata.Client }}{{ .StakeholderCompany }}{{ else }}{{ $.Metadata.Client }}{{ end }}{{ else }}{{ $.Metadata.Client }}{{ end }}</td>
+                <td>{{- if .StakeholderCompany }}{{- if ne .StakeholderCompany $.Metadata.Client }}{{ .StakeholderCompany }}{{- else }}{{ $.Metadata.Client }}{{- end }}{{- else }}{{ $.Metadata.Client }}{{- end }}</td>
                 <td>{{ .StakeholderRole }}</td>
             </tr>
-            {{ end }}
+            {{- end }}
         </tbody>
     </table>
     <div class="page-break"></div>
 </section>
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
 
 <!-- Summaries Template -->
-{{ define "summaries" }}
-{{ if .Summaries }}
+{{- define "summaries" }}
+{{- if .Summaries }}
 <section id="execsum" class="execsum-section" aria-label="Executive Summary">
     <h1>Executive Summary</h1>
-    {{ range .Summaries }}
-    {{ if eq .FileName "execsum.md" }}{{ .Body }}{{ end }}
-    {{ end }}
+    {{- range .Summaries }}
+    {{- if eq .FileName "execsum.md" }}{{ .Body }}{{- end }}
+    {{- end }}
     <div class="page-break"></div>
 </section>
 
 <section id="techsum" class="techsum-section" aria-label="Technical Summary">
     <h1>Technical Summary</h1>
-    {{ range .Summaries }}
-    {{ if eq .FileName "techsum.md" }}{{ .Body }}{{ end }}
-    {{ end }}
+    {{- range .Summaries }}
+    {{- if eq .FileName "techsum.md" }}{{ .Body }}{{- end }}
+    {{- end }}
     <div class="page-break"></div>
 </section>
-{{ end }}
-{{ end }}
-
+{{- end }}
+{{- end }}
 
 <!-- Summary Table Template -->
-{{ define "table-of-findings" }}
-{{ if .Findings }}
+{{- define "table-of-findings" }}
+{{- if .Findings }}
 <section id="table-of-findings" class="table-of-findings-section" aria-label="Table of Findings">
     <h1>Findings Table</h1> 
     <table role="table">
@@ -228,69 +211,78 @@
             </tr>
         </thead>
         <tbody>
-            {{ range .Findings }}
+            {{- range .Findings }}
             <tr>
                 <td><a href="#{{ .FileName }}" aria-label="Navigate to detailed finding {{ .Headers.FindingID }}">{{ .Headers.FindingID }}</a></td>
                 <td class="finding-name">{{ .Headers.FindingTitle }}</td>
                 <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
                 <td class="finding-severity-{{.Headers.FindingSeverity}}"> {{ .Headers.FindingSeverity }} </td>
             </tr>
-            {{ end }}
+            {{- end }}
         </tbody>
     </table>
     <div class="page-break"></div>
 </section>
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
 
 <!-- Severity Assessment Template -->
-{{ define "severity-assessment" }}
-{{ if .Severity.ConductSeverityAssessment }}
+{{- define "severity-assessment" }}
+{{- if .Severity.ConductSeverityAssessment }}
 <section id="severity-assessment" class="severity-section-assessment" aria-label="Severity Assessment">
     <h1>Findings Assessment</h1> 
     <table role="table" aria-label="Severity Assessment Table">
         <thead>
             <tr>
                 <th scope="col"></th>
-                {{ if $.Severity.FlipSeverityAssessment }}
-                    {{ range .Severity.Impacts }}<th scope="col">{{ . }}</th>{{ end }}
-                {{ else }}
-                    {{ range .Severity.Likelihoods }}<th scope="col">{{ . }}</th>{{ end }}
-                {{ end }}
+                {{- if $.Severity.FlipSeverityAssessment }}
+                    {{- range .Severity.Impacts }}<th scope="col">{{ . }}</th>{{- end }}
+                {{- else }}
+                    {{- range .Severity.Likelihoods }}<th scope="col">{{ . }}</th>{{- end }}
+                {{- end }}
             </tr>
         </thead>
         <tbody>
-            {{ range $rowIndex, $intersections := .Severity.Matrix }}
+            {{- range $rowIndex, $intersections := .Severity.Matrix }}
             <tr>
                 <th scope="row">
-                    {{ if $.Severity.FlipSeverityAssessment }}
-                        {{ index $.Severity.Likelihoods $rowIndex }}
-                    {{ else }}
-                        {{ index $.Severity.Impacts $rowIndex }}
-                    {{ end }}
+                    {{- if $.Severity.FlipSeverityAssessment }}
+                        {{- index $.Severity.Likelihoods $rowIndex }}
+                    {{- else }}
+                        {{- index $.Severity.Impacts $rowIndex }}
+                    {{- end -}}
                 </th>
-                {{ range $columnIndex, $intersection := $intersections }}
-                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">{{ $intersection }}</td>
-                {{ end }}
+                {{- range $columnIndex, $intersectionString := $intersections }}
+                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">
+                    {{- $ids := split $intersectionString ", " -}}
+                    {{- range $id := $ids -}}
+                    {{- range $.Findings -}}
+                        {{- if eq .Headers.FindingID $id -}}
+                        <a href="#{{ .FileName }}">{{ $id }}</a>
+                        {{- end -}}
+                    {{- end -}}
+                    {{- end -}}
+                </td>
+                {{- end }}
             </tr>
-            {{ end }}
+            {{- end }}
         </tbody>
     </table>
     <div class="page-break"></div>
 </section>
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
 
 <!-- Findings Template -->
-{{ define "findings" }}
-{{ if .Findings }}
-{{ $lastDirectory := "" }}
-{{ range .Findings }}
-{{ if ne .Directory $lastDirectory }}
-{{ if ne $lastDirectory "" }}</section>{{ end }}
+{{- define "findings" }}
+{{- if .Findings }}
+{{- $lastDirectory := "" }}
+{{- range .Findings }}
+{{- if ne .Directory $lastDirectory }}
+{{- if ne $lastDirectory "" }}</section>{{- end }}
 <section id="findings-{{ .Directory }}" class="findings-section" aria-label="Findings - {{ .Directory }}">
     <h1>{{ .Directory }} Findings</h1>
-{{ end }}
+{{- end }}
     
     <article id="{{ .FileName }}" class="finding" aria-label="Finding - {{ .Headers.FindingTitle }}">
         <h2>{{ .Headers.FindingID }} - {{ .Headers.FindingTitle }}</h2>
@@ -298,20 +290,20 @@
             <thead>
                 <tr>
                     <th scope="col">Finding Status</th>
-                    {{ if $.Severity.ConductSeverityAssessment }}
+                    {{- if $.Severity.ConductSeverityAssessment }}
                         <th scope="col">Finding Impact</th>
                         <th scope="col">Finding Likelihood</th>
-                    {{ end }}
+                    {{- end }}
                     <th scope="col">Finding Severity</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="finding-status-{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
-                    {{ if $.Severity.ConductSeverityAssessment }}
+                    {{- if $.Severity.ConductSeverityAssessment }}
                         <td>{{ .Headers.FindingImpact }}</td>
                         <td>{{ .Headers.FindingLikelihood }}</td>
-                    {{ end }}
+                    {{- end }}
                     <td class="finding-severity-{{ .Headers.FindingSeverity }}">{{ .Headers.FindingSeverity }}</td>
                 </tr>
             </tbody>
@@ -319,63 +311,63 @@
         {{ .Body }}
     </article>
     <div class="page-break"></div>
-    {{ $lastDirectory = .Directory }}
-    {{ end }}
+    {{- $lastDirectory = .Directory }}
+    {{- end }}
 </section>
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
 
 <!-- Suggestions Template -->
-{{ define "suggestions" }}
-{{ if .Suggestions }}
-{{ $lastDirectory := "" }}
-{{ range .Suggestions }}
-{{ if ne .Directory $lastDirectory }} 
-{{ if ne $lastDirectory "" }}</section>{{ end }} 
+{{- define "suggestions" }}
+{{- if .Suggestions }}
+{{- $lastDirectory := "" }}
+{{- range .Suggestions }}
+{{- if ne .Directory $lastDirectory }}
+{{- if ne $lastDirectory "" }}</section>{{- end }}
 <section id="suggestions-{{ .Directory }}" class="suggestions-section" aria-label="Suggestions - {{ .Directory }}">
     <h1>{{ .Directory }} Suggestions</h1> 
-    {{ end }}
+    {{- end }}
     <article id="{{ .FileName }}" class="suggestion" aria-label="Suggestion - {{ .Headers.SuggestionTitle }}">
         <h2>{{ .Headers.SuggestionID }} - {{ .Headers.SuggestionTitle }}</h2>
         {{ .Body }}
     </article>
     <div class="page-break"></div>
-    {{ $lastDirectory = .Directory }}
-{{ end }}
+    {{- $lastDirectory = .Directory }}
+{{- end }}
 </section>
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
 
 <!-- Appendices Template -->
-{{ define "appendices" }}
-{{ if .Appendices }}
-{{ $lastDirectory := "" }}
-{{ range .Appendices }}
-{{ if ne .Directory $lastDirectory }} 
-{{ if ne $lastDirectory "" }}</section>{{ end }} 
+{{- define "appendices" }}
+{{- if .Appendices }}
+{{- $lastDirectory := "" }}
+{{- range .Appendices }}
+{{- if ne .Directory $lastDirectory }}
+{{- if ne $lastDirectory "" }}</section>{{- end }}
 <section id="appendices-{{ .Directory }}" class="appendices-section" aria-label="Appendices - {{ .Directory }}">
     <h1>{{ .Directory }} Appendices</h1> 
-    {{ end }}
+    {{- end }}
     <article id="{{ .FileName }}" class="appendices" aria-label="Appendix - {{ .Headers.AppendixTitle }}">
         <h2>{{ .Headers.AppendixTitle }}</h2>
         {{ .Body }}
     </article>
     <div class="page-break"></div>
-    {{ $lastDirectory = .Directory }}
-{{ end }}
+    {{- $lastDirectory = .Directory }}
+{{- end }}
 </section>
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
 
 <!-- Document Status Indicator Template -->
-{{ define "document-status-indicator" }}
-{{ if .Metadata }}
-{{ range .Metadata.DocumentInformation }}
-{{ if .DocumentCurrent }}
-{{ if eq .DocumentVersioning.DocumentStatus "Draft" }}
+{{- define "document-status-indicator" }}
+{{- if .Metadata }}
+{{- range .Metadata.DocumentInformation }}
+{{- if .DocumentCurrent }}
+{{- if eq .DocumentVersioning.DocumentStatus "Draft" }}
 <p class="AE3CEE3B46BEBFFE161D55F7AF5F97F1"></p>
-{{ end }}
-{{ end }}
-{{ end }}
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
