@@ -1,11 +1,12 @@
 ---
-FindingID: A1 
+FindingID: A3 
+FindingIDLocked: true
 FindingName: example-finding-3
-FindingTitle: Arbitrary Code Execution
+FindingTitle: Root Detection
 FindingStatus: Resolved
-FindingImpact: Severe 
-FindingLikelihood: Almost Certain
-FindingSeverity: Critical
+FindingImpact: Minor 
+FindingLikelihood: Almost Never
+FindingSeverity: Low
 FindingAuthor: JM
 FindingReviewers: 
 ---

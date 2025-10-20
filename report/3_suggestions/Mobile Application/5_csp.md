@@ -1,6 +1,6 @@
 ---
 SuggestionID: C1 
-SuggestionName: csp
+SuggestionIDLocked: true
 SuggestionTitle: Content Security Policy Suggestion
 SuggestionStatus: Unresolved
 SuggestionAuthor: JM

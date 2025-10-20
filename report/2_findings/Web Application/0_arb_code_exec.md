@@ -1,11 +1,12 @@
 ---
-FindingID: B1
-FindingName: security headers
-FindingTitle: Missing Security Headers
+FindingID: B1 
+FindingIDLocked: true
+FindingName: arb_code_exec
+FindingTitle: Arbitrary Code Execution
 FindingStatus: Unresolved
-FindingImpact: Minimal
-FindingLikelihood: Almost Never
-FindingSeverity: Low 
+FindingImpact: Severe
+FindingLikelihood: Almost Certain
+FindingSeverity: Critical
 FindingAuthor: JM
 FindingReviewers: 
 ---
@@ -18,7 +19,7 @@ FindingReviewers:
 - Target Variable: !Asset0 || !Asset1
   -  First un-ordered Subitem
   - Second un-ordered Subitem 
-- Third un-ordered item
+- Third un-ordered items
 
 </retest_fixed>
 
@@ -50,7 +51,9 @@ This is a paragraph with **bold text**, *italic text*, <mark>highlighted</mark> 
 
 [Google](https://www.google.com)
 
-![This is the alt text for the troll img](Screenshots/troll.png)
+![This is the alt text for the troll img without scaling](Screenshots/troll.png)
+
+![This is the alt text for the troll img with scaling](Screenshots/troll.png){width:10%;}
 
 > This is a blockquote.
 

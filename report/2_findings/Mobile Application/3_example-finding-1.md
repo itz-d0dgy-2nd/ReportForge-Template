@@ -1,11 +1,12 @@
 ---
-FindingID: A2 
+FindingID: A1 
+FindingIDLocked: true
 FindingName: example-finding-1
 FindingTitle: Android MinSDK 22
 FindingStatus: Resolved
-FindingImpact: Minimal 
-FindingLikelihood: Almost Certain
-FindingSeverity: Medium
+FindingImpact: Minimal
+FindingLikelihood: Almost Never
+FindingSeverity: Low
 FindingAuthor: JM
 FindingReviewers: 
 ---
