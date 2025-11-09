@@ -97,105 +97,63 @@
     cursor: pointer;
 }
 
-/* ======== Severity Matrix Page ======== */
-.severity-section-assessment table {
-    border-collapse: collapse;
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    padding: 5pt;
-    text-align: center;
-    vertical-align: middle;
+/* ======== Findings Assessments ======== */
+.finding-name {
+    text-align: left;
 }
 
-.severity-section-assessment table thead tr th {
-    background-color: #290d32;
-    height: 67.5pt;
-    width: 67.5pt;
-    max-height: 67.5pt;
-    max-width: 67.5pt;
-    color: white;
-    font-weight: 400;
-    font-style: light;
-    font-size: 11pt;
-    border: 1px solid white;
+.finding-status[data-status="Unresolved"] {
+    font-weight: bold;
+    color: #ff0000;
 }
 
-.severity-section-assessment table tbody tr th {
-    background-color: #290d32;
-    width: 67.5pt;
-    height: 67.5pt;
-    max-height: 67.5pt;
-    max-width: 67.5pt;
-    color: white;
-    font-weight: 400;
-    font-style: light;
-    font-size: 11pt;
-    border: 1px solid white;
+.finding-status[data-status="Resolved"] {
+    font-weight: bold;
+    color: #00a336;
 }
 
-.severity-section-assessment table tbody tr td {
-    border: 1px solid white;
-    height: 67.5pt;
-    width: 67.5pt;
-    max-height: 67.5pt;
-    max-width: 67.5pt;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.finding-severity::-webkit-meter-bar{
+    background: transparent !important;
 }
 
-.severity-section-assessment a[href^="#"] {
-    padding: 2pt;
+.finding-severity[data-severity="Low"] {
+    background: #a5d63a;
 }
 
-/* ======== Shared Table Styles ======== */
-/* Used by: Document Information, ExecSum, TechSum, Table of Findings, Findings, Suggestions */
-.document-information-section table,
-.execsum-section table,
-.techsum-section table,
-.table-of-findings-section table,
-.findings-section table,
-.suggestions-section table {
-    border-spacing: 1;
-    border-collapse: collapse;
-    background: white;
-    overflow: hidden;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    text-align: center;
+.finding-severity[data-severity="Medium"] {
+    background: #f2fa0c;
 }
 
-.document-information-section table thead tr,
-.execsum-section table thead tr,
-.techsum-section table thead tr,
-.table-of-findings-section table thead tr,
-.findings-section table thead tr,
-.suggestions-section table thead tr {
-    height: 30pt;
-    background-color: #290d32;
+.finding-severity[data-severity="High"] {
+    background: #faae0a;
 }
 
-.document-information-section table thead tr th,
-.execsum-section table thead tr th,
-.techsum-section table thead tr th,
-.table-of-findings-section table thead tr th,
-.findings-section table thead tr th,
-.suggestions-section table thead tr th {
-    color: #fff;
-    font-weight: 400;
-    font-style: light;
+.finding-severity[data-severity="Critical"] {
+    background: #ff4a4a;
 }
 
-.document-information-section table tbody tr,
-.execsum-section table tbody tr,
-.techsum-section table tbody tr,
-.table-of-findings-section table tbody tr,
-.findings-section table tbody tr,
-.suggestions-section table tbody tr {
-    height: 30pt;
-    background-color: #f5f5f5;
+.finding-severity[data-severity="Low"]::-webkit-meter-optimum-value,
+.finding-severity[data-severity="Low"]::-webkit-meter-suboptimum-value,
+.finding-severity[data-severity="Low"]::-webkit-meter-even-less-good-value { 
+    background: #a5d63a;
+}
+
+.finding-severity[data-severity="Medium"]::-webkit-meter-optimum-value,
+.finding-severity[data-severity="Medium"]::-webkit-meter-suboptimum-value,
+.finding-severity[data-severity="Medium"]::-webkit-meter-even-less-good-value { 
+    background: #f2fa0c;
+}
+
+.finding-severity[data-severity="High"]::-webkit-meter-optimum-value,
+.finding-severity[data-severity="High"]::-webkit-meter-suboptimum-value,
+.finding-severity[data-severity="High"]::-webkit-meter-even-less-good-value { 
+    background: #faae0a;
+}
+
+.finding-severity[data-severity="Critical"]::-webkit-meter-optimum-value,
+.finding-severity[data-severity="Critical"]::-webkit-meter-suboptimum-value,
+.finding-severity[data-severity="Critical"]::-webkit-meter-even-less-good-value { 
+    background: #ff4a4a;
 }
 
 /* ======== Global Styles ======== */
@@ -330,36 +288,6 @@ img {
     margin: 0 auto;
 }
 
-.finding-name {
-    text-align: left;
-}
-
-.finding-status-Unresolved {
-    font-weight: bold;
-    color: #ff0000;
-}
-
-.finding-status-Resolved {
-    font-weight: bold;
-    color: #00a336;
-}
-
-.finding-severity-Low {
-    background-color: #a5d63a;
-}
-
-.finding-severity-Medium {
-    background-color: #f2fa0c;
-}
-
-.finding-severity-High {
-    background-color: #faae0a;
-}
-
-.finding-severity-Critical {
-    background-color: #ff4a4a;
-}
-
 blockquote {
     color: #555;
     border-left: 4pt solid #777;
@@ -425,4 +353,54 @@ retest_not_fixed {
     left: 6px;
     outline: 2px solid #ffffff;
     outline-offset: 2px;
+}
+
+
+/* ======== Shared Table Styles ======== */
+/* Used by: Document Information, ExecSum, TechSum, Table of Findings, Findings, Suggestions */
+.document-information-section table,
+.execsum-section table,
+.techsum-section table,
+.table-of-findings-section table,
+.findings-section table,
+.suggestions-section table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: white;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+
+.document-information-section table thead tr,
+.execsum-section table thead tr,
+.techsum-section table thead tr,
+.table-of-findings-section table thead tr,
+.findings-section table thead tr,
+.suggestions-section table thead tr {
+    height: 30pt;
+    background-color: #290d32;
+}
+
+.document-information-section table thead tr th,
+.execsum-section table thead tr th,
+.techsum-section table thead tr th,
+.table-of-findings-section table thead tr th,
+.findings-section table thead tr th,
+.suggestions-section table thead tr th {
+    color: #fff;
+    font-weight: 400;
+    font-style: light;
+}
+
+.document-information-section table tbody tr,
+.execsum-section table tbody tr,
+.techsum-section table tbody tr,
+.table-of-findings-section table tbody tr,
+.findings-section table tbody tr,
+.suggestions-section table tbody tr {
+    height: 30pt;
+    background-color: #f5f5f5;
 }

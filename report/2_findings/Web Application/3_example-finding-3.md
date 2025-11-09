@@ -1,8 +1,8 @@
 ---
-FindingID: A2 
+FindingID: B3 
 FindingIDLocked: true
-FindingName: example-finding-2
-FindingTitle: Emulator Detection
+FindingName: example-finding-3
+FindingTitle: Root Detection
 FindingStatus: Resolved
 FindingImpact: Minor 
 FindingLikelihood: Almost Never

@@ -1,0 +1,51 @@
+/* ======== Severity Matrix Page ======== */
+.severity-matrix-section table {
+    border-collapse: collapse;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    padding: 5pt;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.severity-matrix-section table thead tr th {
+    background-color: #290d32;
+    height: 67.5pt;
+    width: 67.5pt;
+    max-height: 67.5pt;
+    max-width: 67.5pt;
+    color: white;
+    font-weight: 400;
+    font-style: light;
+    font-size: 11pt;
+    border: 1px solid white;
+}
+
+.severity-matrix-section table tbody tr th {
+    background-color: #290d32;
+    width: 67.5pt;
+    height: 67.5pt;
+    max-height: 67.5pt;
+    max-width: 67.5pt;
+    color: white;
+    font-weight: 400;
+    font-style: light;
+    font-size: 11pt;
+    border: 1px solid white;
+}
+
+.severity-matrix-section table tbody tr td {
+    border: 1px solid white;
+    height: 67.5pt;
+    width: 67.5pt;
+    max-height: 67.5pt;
+    max-width: 67.5pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.severity-matrix-section a[href^="#"] {
+    padding: 2pt;
+}

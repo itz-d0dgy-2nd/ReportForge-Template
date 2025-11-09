@@ -1,9 +1,13 @@
 ConductSeverityAssessment: true
-FlipSeverityAssessment: false
+DisplaySeverityMatrix: true
+FlipSeverityMatrix: false
+DisplaySeverityBarGraph: true
 
-# Impact labels for the severity matrix (displayed as row/column headers depending on FlipSeverityAssessment) and findings
+
+# Impact labels for the severity matrix (displayed as row/column headers depending on FlipSeverityMatrix) and findings
 # - Displayed in the severity assessment table in the report
 # - Defines and controls the impact names used in the findings markdown YAML front matter
+# - NOTE: Lists have implicit ordering, with the list position being the index (EG: Highest == 0)
 Impacts:
   - "Severe"
   - "Significant"
@@ -11,9 +15,10 @@ Impacts:
   - "Minor"
   - "Minimal"
 
-# Likelihood labels for the severity matrix (displayed as row/column headers depending on FlipSeverityAssessment) and findings
+# Likelihood labels for the severity matrix (displayed as row/column headers depending on FlipSeverityMatrix) and findings
 # - Displayed in the severity assessment table in the report
 # - Defines and controls the impact names used in the findings markdown YAML front matter
+# - NOTE: Lists have implicit ordering, with the list position being the index (EG: Highest == 0)
 Likelihoods:
   - "Almost Never"
   - "Possible but Unlikely"
@@ -21,11 +26,13 @@ Likelihoods:
   - "Highly Probable"
   - "Almost Certain"
 
-Scales: 
-  "Critical": 0
-  "High":     1 
-  "Medium":   2
-  "Low":      3
+# Severities labels for the ... Finish comment
+# - NOTE: Lists have implicit ordering, with the list position being the index (EG: Highest == 0)
+Severities:
+  - "Critical" 
+  - "High"      
+  - "Medium"    
+  - "Low"       
 
 # Calculated severity matrix is used to determine finding severity based on the intersection of impact and likelihood
 # - Displayed in the severity assessment table in the report
@@ -33,10 +40,10 @@ Scales:
 # - Defines and controls the severity names used in the findings markdown YAML front matter
 # - Severity names (Low, Medium, High, Critical) map to CSS classes for colour styling
 #   If these severity names change, you must update the corresponding CSS classes at LN:457 - LN:460 in template.css
-#   .finding-severity-Low { background-color: #a5d63a; }
-#   .finding-severity-Medium { background-color: #f2fa0c; }
-#   .finding-severity-High { background-color: #faae0a; }
-#   .finding-severity-Critical { background-color: #ff4a4a; }
+#   .finding-severity[data-severity="Low"] { background-color: #a5d63a; }
+#   .finding-severity[data-severity="Medium"] { background-color: #f2fa0c; }
+#   .finding-severity[data-severity="High"] { background-color: #faae0a; }
+#   .finding-severity[data-severity="Critical"] { background-color: #ff4a4a; }
 CalculatedMatrix:
  - ["High", "High", "Critical", "Critical", "Critical"]
  - ["Medium", "High", "High", "High", "Critical"]

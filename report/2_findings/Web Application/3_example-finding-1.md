@@ -1,10 +1,10 @@
 ---
-FindingID: A3 
+FindingID: B1 
 FindingIDLocked: true
-FindingName: example-finding-3
-FindingTitle: Root Detection
+FindingName: example-finding-1
+FindingTitle: Android MinSDK 22
 FindingStatus: Resolved
-FindingImpact: Minor 
+FindingImpact: Minimal
 FindingLikelihood: Almost Never
 FindingSeverity: Low
 FindingAuthor: JM

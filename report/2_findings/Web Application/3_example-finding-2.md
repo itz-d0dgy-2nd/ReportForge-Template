@@ -1,10 +1,10 @@
 ---
-FindingID: A1 
+FindingID: B2
 FindingIDLocked: true
-FindingName: example-finding-1
-FindingTitle: Android MinSDK 22
+FindingName: example-finding-2
+FindingTitle: Emulator Detection
 FindingStatus: Resolved
-FindingImpact: Minimal
+FindingImpact: Minor 
 FindingLikelihood: Almost Never
 FindingSeverity: Low
 FindingAuthor: JM

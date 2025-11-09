@@ -4,8 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Template CSS / JS-->
+        <!-- Template CSS-->
         <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/template.css">
+        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/severity-matrix.css">
+        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/severity-bar-graph.css">
+        <link rel="stylesheet" href="{{ .Path }}/0_report_template/html/styles/custom.css">
+
+        <!-- Template JS-->
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/template.js"></script>
 
         <!-- Google Fonts -->
@@ -33,7 +38,8 @@
             {{- template "document-information" . }}
             {{- template "summaries" . }}
             {{- template "table-of-findings" . }}
-            {{- template "severity-assessment" . }}
+            {{- template "severity-matrix" . }}
+            {{- template "severity-bar-graph" . }}
             {{- template "findings" . }}
             {{- template "suggestions" . }}
             {{- template "appendices" . }}
@@ -88,7 +94,8 @@
             <li><a href="#table-of-findings" aria-label="Navigate to Findings Table">Findings Table</a></li>
             {{- end }}
             {{- if .Severity }}
-            <li><a href="#severity-assessment" aria-label="Navigate to Severity Assessment">Severity Assessment</a></li>
+                {{- if .Severity.DisplaySeverityMatrix }}<li><a href="#severity-matrix" aria-label="Navigate to Severity Matrix">Severity Matrix</a></li>{{ end }}
+                {{- if .Severity.DisplaySeverityBarGraph }}<li><a href="#severity-bar-graph" aria-label="Navigate to Severity Bar Graph">Severity Bar Graph</a></li>{{ end }}
             {{- end }}
             {{- if .Findings }}
             {{- $lastDirectory := "" }}
@@ -215,8 +222,8 @@
             <tr>
                 <td><a href="#{{ .FileName }}" aria-label="Navigate to detailed finding {{ .Headers.FindingID }}">{{ .Headers.FindingID }}</a></td>
                 <td class="finding-name">{{ .Headers.FindingTitle }}</td>
-                <td class="finding-status-{{.Headers.FindingStatus}}">{{ .Headers.FindingStatus }}</td>
-                <td class="finding-severity-{{.Headers.FindingSeverity}}"> {{ .Headers.FindingSeverity }} </td>
+                <td class="finding-status" data-status="{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
+                <td class="finding-severity" data-severity="{{ .Headers.FindingSeverity }}"> {{ .Headers.FindingSeverity }} </td>
             </tr>
             {{- end }}
         </tbody>
@@ -226,16 +233,16 @@
 {{- end }}
 {{- end }}
 
-<!-- Severity Assessment Template -->
-{{- define "severity-assessment" }}
-{{- if .Severity.ConductSeverityAssessment }}
-<section id="severity-assessment" class="severity-section-assessment" aria-label="Severity Assessment">
+<!-- Severity Matrix Template -->
+{{- define "severity-matrix" }}
+{{- if .Severity.DisplaySeverityMatrix }}
+<section id="severity-matrix" class="severity-matrix-section" aria-label="Severity Matrix">
     <h1>Findings Assessment</h1> 
-    <table role="table" aria-label="Severity Assessment Table">
+    <table role="table" aria-label="Severity Matrix Table">
         <thead>
             <tr>
                 <th scope="col"></th>
-                {{- if $.Severity.FlipSeverityAssessment }}
+                {{- if $.Severity.FlipSeverityMatrix }}
                     {{- range .Severity.Impacts }}<th scope="col">{{ . }}</th>{{- end }}
                 {{- else }}
                     {{- range .Severity.Likelihoods }}<th scope="col">{{ . }}</th>{{- end }}
@@ -246,14 +253,14 @@
             {{- range $rowIndex, $intersections := .Severity.Matrix }}
             <tr>
                 <th scope="row">
-                    {{- if $.Severity.FlipSeverityAssessment }}
+                    {{- if $.Severity.FlipSeverityMatrix }}
                         {{- index $.Severity.Likelihoods $rowIndex }}
                     {{- else }}
                         {{- index $.Severity.Impacts $rowIndex }}
                     {{- end -}}
                 </th>
                 {{- range $columnIndex, $intersectionString := $intersections }}
-                <td class="finding-severity-{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">
+                <td class="finding-severity" data-severity="{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">
                     {{- $ids := split $intersectionString ", " -}}
                     {{- range $id := $ids -}}
                     {{- range $.Findings -}}
@@ -268,6 +275,50 @@
             {{- end }}
         </tbody>
     </table>
+    <div class="page-break"></div>
+</section>
+{{- end }}
+{{- end }}
+
+<!-- Severity Bar Graph Template -->
+{{- define "severity-bar-graph" }}
+{{- if .Severity.DisplaySeverityBarGraph }}
+<section id="severity-bar-graph" class="severity-graph-section" aria-label="Severity Bar Graph">
+    <h1>Findings Assessment</h1>
+    {{- $total := len .Findings }}
+    {{- $low := 0 }}
+    {{- $medium := 0 }}
+    {{- $high := 0 }}
+    {{- $critical := 0 }}
+    {{- range .Findings }}
+        {{- if eq .Headers.FindingSeverity "Low" }}
+            {{- $low = inc $low }}
+        {{- else if eq .Headers.FindingSeverity "Medium" }}
+            {{- $medium = inc $medium }}
+        {{- else if eq .Headers.FindingSeverity "High" }}
+            {{- $high = inc $high }}
+        {{- else if eq .Headers.FindingSeverity "Critical" }}
+            {{- $critical = inc $critical }}
+        {{- end }}
+    {{- end }}
+    <div class="bar-graph-vertical">
+        <div class="bar-container-vertical">
+            <meter class="bar finding-severity" data-severity="Low" value="{{ $low }}" max="{{ $total }}" aria-label="Low severity: {{ $low }} of {{ $total }} findings"></meter>
+            <span class="label">Low</span>
+        </div>
+        <div class="bar-container-vertical">
+            <meter class="bar finding-severity" data-severity="Medium" value="{{ $medium }}" max="{{ $total }}" aria-label="Medium severity: {{ $medium }} of {{ $total }} findings"></meter>
+            <span class="label">Medium</span>
+        </div>
+        <div class="bar-container-vertical">
+            <meter class="bar finding-severity" data-severity="High" value="{{ $high }}" max="{{ $total }}" aria-label="High severity: {{ $high }} of {{ $total }} findings"></meter>
+            <span class="label">High</span>
+        </div>
+        <div class="bar-container-vertical">
+            <meter class="bar finding-severity" data-severity="Critical" value="{{ $critical }}" max="{{ $total }}" aria-label="Critical severity: {{ $critical }} of {{ $total }} findings"></meter>
+            <span class="label">Critical</span>
+        </div>
+    </div>
     <div class="page-break"></div>
 </section>
 {{- end }}
@@ -299,12 +350,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="finding-status-{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
+                    <td class="finding-status" data-status="{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
                     {{- if $.Severity.ConductSeverityAssessment }}
                         <td>{{ .Headers.FindingImpact }}</td>
                         <td>{{ .Headers.FindingLikelihood }}</td>
                     {{- end }}
-                    <td class="finding-severity-{{ .Headers.FindingSeverity }}">{{ .Headers.FindingSeverity }}</td>
+                    <td class="finding-severity" data-severity="{{ .Headers.FindingSeverity }}">{{ .Headers.FindingSeverity }}</td>
                 </tr>
             </tbody>
         </table>
