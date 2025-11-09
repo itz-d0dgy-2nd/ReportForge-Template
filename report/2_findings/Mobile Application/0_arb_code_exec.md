@@ -52,10 +52,11 @@ This is a paragraph with **bold text**, *italic text*, <mark>highlighted</mark> 
 [Google](https://www.google.com)
 
 ![This is the alt text for the troll img without scaling](Screenshots/troll.png)
-![This is the alt text for the troll img without scaling and no line brake](../../Screenshots/text.png)
+![This is the alt text for the troll img without scaling and no line brake](../../Screenshots/troll.png)
 ![This is the alt text for the troll img without scaling and no line brake and no image src]()
 
-![This is the alt text for the troll img with scaling](Screenshots/troll.png){width:10%;}
+![This is the alt text for the troll img with scaling and line brake](Screenshots/troll.png){width:10%;}
+![This is the alt text for the troll img with scaling and no brake](Screenshots/troll.png){width:10%;}
 
 > This is a blockquote.
 
