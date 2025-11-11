@@ -9,6 +9,7 @@ If you find yourself asking: Damn I wish this supports LaTeX. Please action the 
    b. Increment the latexDespairCounter and add your github username
  5. Push your branch, and make a PR
  
-LaTexDespairCounter: 2
- - NZLostboy
+LaTexDespairCounter: 3
  - Skelmis
+ - NZLostboy
+ - Ssupdoc
