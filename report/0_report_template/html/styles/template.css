@@ -53,7 +53,7 @@
     left: 5%;
 }
 
-.metadata-section article h1 {
+.metadata-section article h1, .metadata-section article h2 {
     padding-bottom: 5pt;
     margin: 0;
     color: #c4a4f5;
@@ -404,3 +404,7 @@ retest_not_fixed {
     height: 30pt;
     background-color: #f5f5f5;
 }
+
+/* .summaries-section h1, .findings-section h1, .risk-section h1, .suggestions-section h1, .appendices-section h1 {
+    display: none;
+} */

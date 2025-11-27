@@ -27,7 +27,7 @@
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-python.min.js"></script>
         <script rel="javascript" src="{{ .Path }}/0_report_template/html/scripts/prismjs/prism-csharp.min.js"></script>
         
-    <title>{{ .Metadata.TargetInformation.TargetName }} - {{ .Metadata.TargetInformation.TargetTest }}</title>
+    <title>{{ .MetadataConfig.TargetInformation.TargetName }} - {{ .MetadataConfig.TargetInformation.TargetTest }}</title>
     </head>
 
     <body>
@@ -50,27 +50,27 @@
 
 <!-- Metadata Template -->
 {{- define "metadata" }}
-{{- if .Metadata }}
-<section id="metadata" class="metadata-section" aria-label="Document Information - Latest">
-    <div class="front-page"></div>
-    <div class="overlay-image"></div>
+{{- if .MetadataConfig }}
+<section id="metadata" class="metadata-section" aria-labelledby="metadata-heading">
     <article>
-        <h1>{{ .Metadata.TargetInformation.TargetName }}</h1>
-        <h1>{{ .Metadata.TargetInformation.TargetTest }}</h1>
-        <table role="table" aria-label="Information Table - Latest">
+        <h1 id="metadata-heading">{{ .MetadataConfig.TargetInformation.TargetName }}</h1>
+        <h2>{{ .MetadataConfig.TargetInformation.TargetTest }}</h2>
+        <table aria-label="Document metadata">
             <tbody>
-                <tr><th scope="row">Client: </th><td>{{ .Metadata.Client }}</td></tr>
-                {{- range .Metadata.DocumentInformation }}
+                <tr><th scope="row">Client:</th><td>{{ .MetadataConfig.Client }}</td></tr>
+                {{- range .MetadataConfig.DocumentInformation }}
                 {{- if .DocumentCurrent }}
-                <tr><th scope="row">Document Status: </th><td>{{ .DocumentVersioning.DocumentStatus }}</td></tr>
-                <tr><th scope="row">Document Version: </th><td>{{ .DocumentVersioning.DocumentVersion }}</td></tr>
-                <tr><th scope="row">Document Date: </th><td>{{ .DocumentVersioning.DocumentDate }}</td></tr>
-                <tr><th scope="row">Document Stage: </th><td>{{ .DocumentVersioning.DocumentStage }}</td></tr>
+                <tr><th scope="row">Document Status:</th><td>{{ .DocumentVersioning.DocumentStatus }}</td></tr>
+                <tr><th scope="row">Document Version:</th><td>{{ .DocumentVersioning.DocumentVersion }}</td></tr>
+                <tr><th scope="row">Document Date:</th><td>{{ .DocumentVersioning.DocumentDate }}</td></tr>
+                <tr><th scope="row">Document Stage:</th><td>{{ .DocumentVersioning.DocumentStage }}</td></tr>
                 {{- end }}
                 {{- end }}
             </tbody>
         </table>
     </article>
+    <div class="front-page"></div>
+    <div class="overlay-image"></div>
     <div class="page-break"></div>
 </section>
 {{- end }}
@@ -78,24 +78,25 @@
 
 <!-- Table of Contents Template -->
 {{- define "table-of-contents" }}
-{{- if .Metadata }}
-<section id="table-of-contents" class="table-of-contents-section" aria-label="Table of Contents">
-    <h1>Table of Contents</h1>
+{{- if .MetadataConfig }}
+<section id="table-of-contents" class="table-of-contents-section" aria-labelledby="table-of-contents-heading">
+    <h1 id="table-of-contents-heading">Table of Contents</h1>
     <nav role="navigation">
         <ul>
-            {{- if .Metadata.DocumentInformation }}
+            {{- if .MetadataConfig.DocumentInformation }}
             <li><a href="#document-information" aria-label="Navigate to Document Information">Document Information</a></li>
             {{- end }}
             {{- if .Summaries }}
-            <li><a href="#execsum" aria-label="Navigate to Executive Summary">Executive Summary</a></li>
-            <li><a href="#techsum" aria-label="Navigate to Technical Summary">Technical Summary</a></li>
+            {{- range .Summaries }}
+            <li><a href="#summaries-{{ .Headers.ReportSummaryName }}" aria-label="Navigate to {{ .Headers.ReportSummaryName }} summary">{{ .Headers.ReportSummaryTitle }}</a></li>
+            {{- end }}
             {{- end }}
             {{- if .Findings }}
             <li><a href="#table-of-findings" aria-label="Navigate to Findings Table">Findings Table</a></li>
             {{- end }}
-            {{- if .Severity }}
-                {{- if .Severity.DisplaySeverityMatrix }}<li><a href="#severity-matrix" aria-label="Navigate to Severity Matrix">Severity Matrix</a></li>{{ end }}
-                {{- if .Severity.DisplaySeverityBarGraph }}<li><a href="#severity-bar-graph" aria-label="Navigate to Severity Bar Graph">Severity Bar Graph</a></li>{{ end }}
+            {{- if .SeverityConfig }}
+                {{- if .SeverityConfig.ConductSeverityAssessment }}<li><a href="#severity-matrix" aria-label="Navigate to Severity Matrix">Severity Matrix</a></li>{{ end }}
+                {{- if .SeverityConfig.DisplaySeverityBarGraph }}<li><a href="#severity-bar-graph" aria-label="Navigate to Severity Bar Graph">Severity Bar Graph</a></li>{{ end }}
             {{- end }}
             {{- if .Findings }}
             {{- $lastDirectory := "" }}
@@ -133,9 +134,10 @@
 
 <!-- Document Information Template -->
 {{- define "document-information" }}
-{{- if .Metadata }}
-<section id="document-information" class="document-information-section" aria-label="Document Information - Complete">
-    <h1>Document Information</h1>
+{{- if .MetadataConfig }}
+<section id="document-information" class="document-information-section" aria-labelledby="document-information">
+    <h1 id="document-information-heading">Document Information</h1>
+    <h2>Document Versioning</h2>
     <table role="table" aria-label="Information Table - Complete">
         <thead>
             <tr>
@@ -147,7 +149,7 @@
             </tr>
         </thead>
         <tbody>
-            {{- range .Metadata.DocumentInformation }}
+            {{- range .MetadataConfig.DocumentInformation }}
             <tr>
                 <td>{{ .DocumentVersioning.DocumentStatus }}</td>
                 <td>{{ .DocumentVersioning.DocumentVersion }}</td>
@@ -158,7 +160,7 @@
             {{- end }}
         </tbody>
     </table>
-    <h1>Document Stakeholders</h1>
+    <h2>Document Stakeholders</h2>
     <table role="table" aria-label="Stakeholders Table">
         <thead>
             <tr>
@@ -168,10 +170,10 @@
             </tr>
         </thead>
         <tbody>
-            {{- range .Metadata.StakeholderInformation }}
+            {{- range .MetadataConfig.StakeholderInformation }}
             <tr>
                 <td>{{ .StakeholderName }}</td>
-                <td>{{- if .StakeholderCompany }}{{- if ne .StakeholderCompany $.Metadata.Client }}{{ .StakeholderCompany }}{{- else }}{{ $.Metadata.Client }}{{- end }}{{- else }}{{ $.Metadata.Client }}{{- end }}</td>
+                <td>{{- if .StakeholderCompany }}{{- if ne .StakeholderCompany $.MetadataConfig.Client }}{{ .StakeholderCompany }}{{- else }}{{ $.MetadataConfig.Client }}{{- end }}{{- else }}{{ $.MetadataConfig.Client }}{{- end }}</td>
                 <td>{{ .StakeholderRole }}</td>
             </tr>
             {{- end }}
@@ -185,20 +187,15 @@
 <!-- Summaries Template -->
 {{- define "summaries" }}
 {{- if .Summaries }}
-<section id="execsum" class="execsum-section" aria-label="Executive Summary">
-    <h1>Executive Summary</h1>
+<section id="summaries" class="summaries-section" aria-labelledby="summaries-heading">
+    <h1 id="summaries-heading">Report Summaries</h1>
     {{- range .Summaries }}
-    {{- if eq .FileName "execsum.md" }}{{ .Body }}{{- end }}
-    {{- end }}
+    <article id="summaries-{{ .Headers.ReportSummaryName }}" class="summary" aria-labelledby="{{ .Headers.ReportSummaryName }}-heading">
+        <h2 id="{{ .Headers.ReportSummaryName }}-heading">{{ .Headers.ReportSummaryTitle }}</h2>
+        {{ .Body }}
+    </article>
     <div class="page-break"></div>
-</section>
-
-<section id="techsum" class="techsum-section" aria-label="Technical Summary">
-    <h1>Technical Summary</h1>
-    {{- range .Summaries }}
-    {{- if eq .FileName "techsum.md" }}{{ .Body }}{{- end }}
     {{- end }}
-    <div class="page-break"></div>
 </section>
 {{- end }}
 {{- end }}
@@ -220,7 +217,7 @@
         <tbody>
             {{- range .Findings }}
             <tr>
-                <td><a href="#{{ .FileName }}" aria-label="Navigate to detailed finding {{ .Headers.FindingID }}">{{ .Headers.FindingID }}</a></td>
+                <td><a href="#{{ .Headers.FindingName }}" aria-label="Navigate to detailed finding {{ .Headers.FindingID }}">{{ .Headers.FindingID }}</a></td>
                 <td class="finding-name">{{ .Headers.FindingTitle }}</td>
                 <td class="finding-status" data-status="{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
                 <td class="finding-severity" data-severity="{{ .Headers.FindingSeverity }}"> {{ .Headers.FindingSeverity }} </td>
@@ -235,37 +232,37 @@
 
 <!-- Severity Matrix Template -->
 {{- define "severity-matrix" }}
-{{- if .Severity.DisplaySeverityMatrix }}
+{{- if .SeverityConfig.ConductSeverityAssessment }}
 <section id="severity-matrix" class="severity-matrix-section" aria-label="Severity Matrix">
-    <h1>Findings Assessment</h1> 
+    <h1>Findings Severity Matrix</h1> 
     <table role="table" aria-label="Severity Matrix Table">
         <thead>
             <tr>
                 <th scope="col"></th>
-                {{- if $.Severity.FlipSeverityMatrix }}
-                    {{- range .Severity.Impacts }}<th scope="col">{{ . }}</th>{{- end }}
+                {{- if $.SeverityConfig.FlipSeverityMatrix }}
+                    {{- range .SeverityConfig.Impacts }}<th scope="col">{{ . }}</th>{{- end }}
                 {{- else }}
-                    {{- range .Severity.Likelihoods }}<th scope="col">{{ . }}</th>{{- end }}
+                    {{- range .SeverityConfig.Likelihoods }}<th scope="col">{{ . }}</th>{{- end }}
                 {{- end }}
             </tr>
         </thead>
         <tbody>
-            {{- range $rowIndex, $intersections := .Severity.Matrix }}
+            {{- range $rowIndex, $intersections := .SeverityMatrix.Matrix }}
             <tr>
                 <th scope="row">
-                    {{- if $.Severity.FlipSeverityMatrix }}
-                        {{- index $.Severity.Likelihoods $rowIndex }}
+                    {{- if $.SeverityConfig.FlipSeverityMatrix }}
+                        {{- index $.SeverityConfig.Likelihoods $rowIndex }}
                     {{- else }}
-                        {{- index $.Severity.Impacts $rowIndex }}
+                        {{- index $.SeverityConfig.Impacts $rowIndex }}
                     {{- end -}}
                 </th>
                 {{- range $columnIndex, $intersectionString := $intersections }}
-                <td class="finding-severity" data-severity="{{ index (index $.Severity.CalculatedMatrix $rowIndex) $columnIndex }}">
+                <td class="finding-severity" data-severity="{{ index (index $.SeverityConfig.CalculatedMatrix $rowIndex) $columnIndex }}">
                     {{- $ids := split $intersectionString ", " -}}
                     {{- range $id := $ids -}}
                     {{- range $.Findings -}}
                         {{- if eq .Headers.FindingID $id -}}
-                        <a href="#{{ .FileName }}">{{ $id }}</a>
+                        <a href="#{{ .Headers.FindingName }}">{{ $id }}</a>
                         {{- end -}}
                     {{- end -}}
                     {{- end -}}
@@ -282,41 +279,25 @@
 
 <!-- Severity Bar Graph Template -->
 {{- define "severity-bar-graph" }}
-{{- if .Severity.DisplaySeverityBarGraph }}
+{{- if .SeverityConfig.DisplaySeverityBarGraph }}
 <section id="severity-bar-graph" class="severity-graph-section" aria-label="Severity Bar Graph">
-    <h1>Findings Assessment</h1>
-    {{- $total := len .Findings }}
-    {{- $low := 0 }}
-    {{- $medium := 0 }}
-    {{- $high := 0 }}
-    {{- $critical := 0 }}
-    {{- range .Findings }}
-        {{- if eq .Headers.FindingSeverity "Low" }}
-            {{- $low = inc $low }}
-        {{- else if eq .Headers.FindingSeverity "Medium" }}
-            {{- $medium = inc $medium }}
-        {{- else if eq .Headers.FindingSeverity "High" }}
-            {{- $high = inc $high }}
-        {{- else if eq .Headers.FindingSeverity "Critical" }}
-            {{- $critical = inc $critical }}
-        {{- end }}
-    {{- end }}
+    <h1>Findings Severity Bar Graph</h1>
     <div class="bar-graph-vertical">
         <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="Low" value="{{ $low }}" max="{{ $total }}" aria-label="Low severity: {{ $low }} of {{ $total }} findings"></meter>
-            <span class="label">Low</span>
+            <meter class="bar finding-severity" data-severity="Low" value="{{ .SeverityBarGraph.Low }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Low severity: {{ .SeverityBarGraph.Low }} of {{ .SeverityBarGraph.Total }} findings"></meter>
+            <span class="label">Low {{ .SeverityBarGraph.Low }}/{{ .SeverityBarGraph.Total }}</span>
         </div>
         <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="Medium" value="{{ $medium }}" max="{{ $total }}" aria-label="Medium severity: {{ $medium }} of {{ $total }} findings"></meter>
-            <span class="label">Medium</span>
+            <meter class="bar finding-severity" data-severity="Medium" value="{{ .SeverityBarGraph.Medium }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Medium severity: {{ .SeverityBarGraph.Medium }} of {{ .SeverityBarGraph.Total }} findings"></meter>
+            <span class="label">Medium {{ .SeverityBarGraph.Medium }}/{{ .SeverityBarGraph.Total }}</span>
         </div>
         <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="High" value="{{ $high }}" max="{{ $total }}" aria-label="High severity: {{ $high }} of {{ $total }} findings"></meter>
-            <span class="label">High</span>
+            <meter class="bar finding-severity" data-severity="High" value="{{ .SeverityBarGraph.High }}" max="{{ .SeverityBarGraph.Total }}" aria-label="High severity: {{ .SeverityBarGraph.High }} of {{ .SeverityBarGraph.Total }} findings"></meter>
+            <span class="label">High {{ .SeverityBarGraph.High }}/{{ .SeverityBarGraph.Total }}</span>
         </div>
         <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="Critical" value="{{ $critical }}" max="{{ $total }}" aria-label="Critical severity: {{ $critical }} of {{ $total }} findings"></meter>
-            <span class="label">Critical</span>
+            <meter class="bar finding-severity" data-severity="Critical" value="{{ .SeverityBarGraph.Critical }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Critical severity: {{ .SeverityBarGraph.Critical }} of {{ .SeverityBarGraph.Total }} findings"></meter>
+            <span class="label">Critical {{ .SeverityBarGraph.Critical }}/{{ .SeverityBarGraph.Total }}</span>
         </div>
     </div>
     <div class="page-break"></div>
@@ -327,43 +308,47 @@
 <!-- Findings Template -->
 {{- define "findings" }}
 {{- if .Findings }}
-{{- $lastDirectory := "" }}
-{{- range .Findings }}
-{{- if ne .Directory $lastDirectory }}
-{{- if ne $lastDirectory "" }}</section>{{- end }}
-<section id="findings-{{ .Directory }}" class="findings-section" aria-label="Findings - {{ .Directory }}">
-    <h1>{{ .Directory }} Findings</h1>
-{{- end }}
+<section id="findings" class="findings-section" aria-labelledby="findings-heading">
+    <h1 id="findings-heading">Findings</h1>
     
-    <article id="{{ .FileName }}" class="finding" aria-label="Finding - {{ .Headers.FindingTitle }}">
-        <h2>{{ .Headers.FindingID }} - {{ .Headers.FindingTitle }}</h2>
-        <table role="table" aria-label="Finding Table">
-            <thead>
-                <tr>
-                    <th scope="col">Finding Status</th>
-                    {{- if $.Severity.ConductSeverityAssessment }}
+    {{- $lastDirectory := "" }}
+    {{- range .Findings }}
+        {{- if ne .Directory $lastDirectory }}
+            {{- if ne $lastDirectory "" }}</section>{{- end }}
+    <section id="findings-{{ .Directory }}" class="findings-directory" aria-labelledby="findings-{{ .Directory }}-heading">
+        <h2 id="findings-{{ .Directory }}-heading">{{ .Directory }} Findings</h2>
+        {{- end }}
+        
+        <article id="{{ .Headers.FindingName }}" class="finding" aria-labelledby="{{ .Headers.FindingName }}-heading">
+            <h3 id="{{ .Headers.FindingName }}-heading">{{ .Headers.FindingID }} - {{ .Headers.FindingTitle }}</h3>
+            <table aria-label="Finding details for {{ .Headers.FindingTitle }}">
+                <thead>
+                    <tr>
+                        <th scope="col">Finding Status</th>
+                        {{- if $.SeverityConfig.ConductSeverityAssessment }}
                         <th scope="col">Finding Impact</th>
                         <th scope="col">Finding Likelihood</th>
-                    {{- end }}
-                    <th scope="col">Finding Severity</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="finding-status" data-status="{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
-                    {{- if $.Severity.ConductSeverityAssessment }}
+                        {{- end }}
+                        <th scope="col">Finding Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="finding-status" data-status="{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
+                        {{- if $.SeverityConfig.ConductSeverityAssessment }}
                         <td>{{ .Headers.FindingImpact }}</td>
                         <td>{{ .Headers.FindingLikelihood }}</td>
-                    {{- end }}
-                    <td class="finding-severity" data-severity="{{ .Headers.FindingSeverity }}">{{ .Headers.FindingSeverity }}</td>
-                </tr>
-            </tbody>
-        </table>
-        {{ .Body }}
-    </article>
-    <div class="page-break"></div>
-    {{- $lastDirectory = .Directory }}
+                        {{- end }}
+                        <td class="finding-severity" data-severity="{{ .Headers.FindingSeverity }}">{{ .Headers.FindingSeverity }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {{ .Body }}
+        </article>
+        <div class="page-break"></div>
+        {{- $lastDirectory = .Directory }}
     {{- end }}
+    </section>
 </section>
 {{- end }}
 {{- end }}
@@ -371,20 +356,24 @@
 <!-- Suggestions Template -->
 {{- define "suggestions" }}
 {{- if .Suggestions }}
-{{- $lastDirectory := "" }}
-{{- range .Suggestions }}
-{{- if ne .Directory $lastDirectory }}
-{{- if ne $lastDirectory "" }}</section>{{- end }}
-<section id="suggestions-{{ .Directory }}" class="suggestions-section" aria-label="Suggestions - {{ .Directory }}">
-    <h1>{{ .Directory }} Suggestions</h1> 
+<section id="suggestions" class="suggestions-section" aria-labelledby="suggestions-heading">
+    <h1 id="suggestions-heading">Suggestions</h1>
+    
+    {{- $lastDirectory := "" }}
+    {{- range .Suggestions }}
+        {{- if ne .Directory $lastDirectory }}
+            {{- if ne $lastDirectory "" }}</section>{{- end }}
+    <section id="suggestions-{{ .Directory }}" class="suggestions-directory" aria-labelledby="suggestions-{{ .Directory }}-heading">
+        <h2 id="suggestions-{{ .Directory }}-heading">{{ .Directory }} Suggestions</h2>
+        {{- end }}
+        <article id="{{ .Headers.SuggestionName }}" class="suggestion" aria-labelledby="{{ .Headers.SuggestionName }}-heading">
+            <h3 id="{{ .Headers.SuggestionName }}-heading">{{ .Headers.SuggestionID }} - {{ .Headers.SuggestionTitle }}</h3>
+            {{ .Body }}
+        </article>
+        <div class="page-break"></div>
+        {{- $lastDirectory = .Directory }}
     {{- end }}
-    <article id="{{ .FileName }}" class="suggestion" aria-label="Suggestion - {{ .Headers.SuggestionTitle }}">
-        <h2>{{ .Headers.SuggestionID }} - {{ .Headers.SuggestionTitle }}</h2>
-        {{ .Body }}
-    </article>
-    <div class="page-break"></div>
-    {{- $lastDirectory = .Directory }}
-{{- end }}
+    </section>
 </section>
 {{- end }}
 {{- end }}
@@ -392,28 +381,31 @@
 <!-- Appendices Template -->
 {{- define "appendices" }}
 {{- if .Appendices }}
-{{- $lastDirectory := "" }}
-{{- range .Appendices }}
-{{- if ne .Directory $lastDirectory }}
-{{- if ne $lastDirectory "" }}</section>{{- end }}
-<section id="appendices-{{ .Directory }}" class="appendices-section" aria-label="Appendices - {{ .Directory }}">
-    <h1>{{ .Directory }} Appendices</h1> 
+<section id="appendices" class="appendices-section" aria-labelledby="appendices-heading">
+    <h1 id="appendices-heading">Appendices</h1>
+    {{- $lastDirectory := "" }}
+    {{- range .Appendices }}
+        {{- if ne .Directory $lastDirectory }}
+            {{- if ne $lastDirectory "" }}</section>{{- end }}
+    <section id="appendices-{{ .Directory }}" class="appendices-directory" aria-labelledby="appendices-{{ .Directory }}-heading">
+        <h2 id="appendices-{{ .Directory }}-heading">{{ .Directory }} Appendices</h2>
+        {{- end }}
+        <article id="{{ .Headers.AppendixName }}" class="appendix" aria-labelledby="{{ .Headers.AppendixName }}-heading">
+            <h3 id="{{ .Headers.AppendixName }}-heading">{{ .Headers.AppendixTitle }}</h3>
+            {{ .Body }}
+        </article>
+        <div class="page-break"></div>
+        {{- $lastDirectory = .Directory }}
     {{- end }}
-    <article id="{{ .FileName }}" class="appendices" aria-label="Appendix - {{ .Headers.AppendixTitle }}">
-        <h2>{{ .Headers.AppendixTitle }}</h2>
-        {{ .Body }}
-    </article>
-    <div class="page-break"></div>
-    {{- $lastDirectory = .Directory }}
-{{- end }}
+    </section>
 </section>
 {{- end }}
 {{- end }}
 
 <!-- Document Status Indicator Template -->
 {{- define "document-status-indicator" }}
-{{- if .Metadata }}
-{{- range .Metadata.DocumentInformation }}
+{{- if .MetadataConfig }}
+{{- range .MetadataConfig.DocumentInformation }}
 {{- if .DocumentCurrent }}
 {{- if eq .DocumentVersioning.DocumentStatus "Draft" }}
 <p class="AE3CEE3B46BEBFFE161D55F7AF5F97F1"></p>
