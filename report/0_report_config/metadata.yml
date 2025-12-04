@@ -1,8 +1,8 @@
----
 Client: Google
 TargetInformation:
   TargetName: Google Search
   TargetTest: Multiple Assessment
+DocumentName: Pentest Report
 DocumentInformation:
 - DocumentCurrent: false
   DocumentVersioning:
@@ -42,3 +42,4 @@ StakeholderInformation:
 CustomVariables:
   Asset0: Google Web Application
   Asset1: Google APK
+

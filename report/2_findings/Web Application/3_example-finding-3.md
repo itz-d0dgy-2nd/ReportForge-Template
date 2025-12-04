@@ -4,7 +4,7 @@ FindingIDLocked: true
 FindingName: example-finding-3
 FindingTitle: Root Detection
 FindingStatus: Resolved
-FindingImpact: Minor 
+FindingImpact: Minor
 FindingLikelihood: Almost Never
 FindingSeverity: Low
 FindingAuthor: JM

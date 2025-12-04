@@ -1,3 +1,7 @@
 .idea/**
-Report*
+
 amd64*
+
+*.pdf
+*.html
+*.xlsx

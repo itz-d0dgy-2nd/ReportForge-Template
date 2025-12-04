@@ -1,8 +1,6 @@
 ConductSeverityAssessment: true
-DisplaySeverityMatrix: true
 FlipSeverityMatrix: false
 DisplaySeverityBarGraph: true
-
 
 # Impact labels for the severity matrix (displayed as row/column headers depending on FlipSeverityMatrix) and findings
 # - Displayed in the severity assessment table in the report
@@ -50,10 +48,3 @@ CalculatedMatrix:
  - ["Medium", "Medium", "Medium", "High", "High"]
  - ["Low", "Medium", "Medium", "Medium", "High"]
  - ["Low", "Low", "Medium", "Medium", "Medium"]
-
-Matrix:
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]
-  - ["", "", "", "", ""]

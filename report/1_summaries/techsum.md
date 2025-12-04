@@ -1,15 +1,17 @@
----
+--- 
+ReportSummaryName: techsum
+ReportSummaryTitle: Technical Summary
 ReportSummariesAuthor: JM
 ReportSummariesReviewers: Nil
 ---
 
-## System Summary
+### System Summary
 
 
 
-## Testing Methodology 
+### Testing Methodology 
 
 
 
-## Scope & Approach to Testing
+### Scope & Approach to Testing
 

@@ -1,10 +1,10 @@
 ---
-FindingID: B2
+FindingID: B2 
 FindingIDLocked: true
 FindingName: example-finding-2
 FindingTitle: Emulator Detection
 FindingStatus: Resolved
-FindingImpact: Minor 
+FindingImpact: Minor
 FindingLikelihood: Almost Never
 FindingSeverity: Low
 FindingAuthor: JM
