@@ -112,6 +112,10 @@
     color: #00a336;
 }
 
+.finding-status::-webkit-meter-bar {
+    background: transparent !important;
+}
+
 .finding-severity::-webkit-meter-bar{
     background: transparent !important;
 }
