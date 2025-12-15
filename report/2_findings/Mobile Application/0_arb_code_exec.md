@@ -37,7 +37,7 @@ FindingReviewers:
 
 ### Details
 
-This is a paragraph with **bold text**, *italic text*, <mark>highlighted</mark> text, `inline code`, and <qa>QA TEXT</qa>. I am now referencing another finding [here](#Critical_mobile_authn_broken_mfa). This sentance was added to test report gen in action
+This is a paragraph with **bold text**, *italic text*, <mark>highlighted</mark> text, `inline code`, and <qa>QA TEXT</qa>. I am now referencing another finding [here](#example-finding-1). This sentance was added to test report gen in action
 
 - First un-ordered item
 - Second un-ordered item

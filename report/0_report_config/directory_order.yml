@@ -1,23 +1,27 @@
 # Summaries section ordering within the report.
 # - Each list item represents a directory name used for ordering.
 # - If the list item is left empty, entries will be ordered alphabetically.
+# - NOTE: I MADE THIS CASE SENSITIVE
 Summaries:
   -
-
+  
 # Findings section ordering within the report.
 # - Each list item represents a directory name used for ordering.
 # - If the list item is left empty, entries will be ordered alphabetically.
+# - NOTE: I MADE THIS CASE SENSITIVE
 Findings:
   - 
 
 # Suggestions section ordering within the report.
 # - Each list item represents a directory name used for ordering.
 # - If the list item is left empty, entries will be ordered alphabetically.
+# - NOTE: I MADE THIS CASE SENSITIVE
 Suggestions:
-  - 
+  - Web Application
 
 # Risk section ordering within the report.
 # - Each list item represents a directory name used for ordering.
 # - If the list item is left empty, entries will be ordered alphabetically.
+# - NOTE: I MADE THIS CASE SENSITIVE
 Risk:
   -

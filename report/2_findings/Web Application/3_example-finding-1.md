@@ -1,5 +1,5 @@
 ---
-FindingID: B1 
+FindingID: B1  
 FindingIDLocked: true
 FindingName: example-finding-1
 FindingTitle: Android MinSDK 22
@@ -13,6 +13,7 @@ FindingReviewers:
 
 ### Details
 
+![This is the alt text for the moon img without scaling and no line brake in another finding](../../Screenshots/moon.jpg)
 
 ### Reproduction Steps
 

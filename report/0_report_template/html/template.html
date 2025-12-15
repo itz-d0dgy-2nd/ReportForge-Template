@@ -38,6 +38,7 @@
             {{- template "document-information" . }}
             {{- template "summaries" . }}
             {{- template "table-of-findings" . }}
+            {{- template "table-of-suggestions" . }}
             {{- template "severity-matrix" . }}
             {{- template "severity-bar-graph" . }}
             {{- template "findings" . }}
@@ -93,6 +94,9 @@
             {{- end }}
             {{- if .Findings }}
             <li><a href="#table-of-findings" aria-label="Navigate to Findings Table">Findings Table</a></li>
+            {{- end }}
+            {{- if .Suggestions }}
+            <li><a href="#table-of-suggestions" aria-label="Navigate to Suggestions Table">Suggestions Table</a></li>
             {{- end }}
             {{- if .SeverityConfig }}
                 {{- if .SeverityConfig.ConductSeverityAssessment }}<li><a href="#severity-matrix" aria-label="Navigate to Severity Matrix">Severity Matrix</a></li>{{ end }}
@@ -200,7 +204,7 @@
 {{- end }}
 {{- end }}
 
-<!-- Summary Table Template -->
+<!-- Summary Findings Table Template -->
 {{- define "table-of-findings" }}
 {{- if .Findings }}
 <section id="table-of-findings" class="table-of-findings-section" aria-label="Table of Findings">
@@ -218,9 +222,37 @@
             {{- range .Findings }}
             <tr>
                 <td><a href="#{{ .Headers.FindingName }}" aria-label="Navigate to detailed finding {{ .Headers.FindingID }}">{{ .Headers.FindingID }}</a></td>
-                <td class="finding-name">{{ .Headers.FindingTitle }}</td>
+                <td class="finding-table-name">{{ .Headers.FindingTitle }}</td>
                 <td class="finding-status" data-status="{{ .Headers.FindingStatus }}">{{ .Headers.FindingStatus }}</td>
                 <td class="finding-severity" data-severity="{{ .Headers.FindingSeverity }}"> {{ .Headers.FindingSeverity }} </td>
+            </tr>
+            {{- end }}
+        </tbody>
+    </table>
+    <div class="page-break"></div>
+</section>
+{{- end }}
+{{- end }}
+
+<!-- Summary Suggestions Table Template -->
+{{- define "table-of-suggestions" }}
+{{- if .Suggestions }}
+<section id="table-of-suggestions" class="table-of-suggestions-section" aria-label="Table of Suggestions">
+    <h1>Suggestions Table</h1> 
+    <table role="table">
+        <thead>
+            <tr>
+                <th scope="col">Suggestion ID</th>
+                <th scope="col">Suggestion Name</th>
+                <th scope="col">Suggestion Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{- range .Suggestions }}
+            <tr>
+                <td><a href="#{{ .Headers.SuggestionName }}" aria-label="Navigate to detailed suggestion {{ .Headers.SuggestionID }}">{{ .Headers.SuggestionID }}</a></td>
+                <td class="suggestion-table-name">{{ .Headers.SuggestionTitle }}</td>
+                <td class="suggestions-status" data-status="{{ .Headers.SuggestionStatus }}">{{ .Headers.SuggestionStatus }}</td>
             </tr>
             {{- end }}
         </tbody>
@@ -282,6 +314,8 @@
 {{- if .SeverityConfig.DisplaySeverityBarGraph }}
 <section id="severity-bar-graph" class="severity-graph-section" aria-label="Severity Bar Graph">
     <h1>Findings Severity Bar Graph</h1>
+    
+    <h2>Severity Distribution</h2>
     <div class="bar-graph-vertical">
         <div class="bar-container-vertical">
             <meter class="bar finding-severity" data-severity="Low" value="{{ .SeverityBarGraph.Low }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Low severity: {{ .SeverityBarGraph.Low }} of {{ .SeverityBarGraph.Total }} findings"></meter>
@@ -299,7 +333,16 @@
             <meter class="bar finding-severity" data-severity="Critical" value="{{ .SeverityBarGraph.Critical }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Critical severity: {{ .SeverityBarGraph.Critical }} of {{ .SeverityBarGraph.Total }} findings"></meter>
             <span class="label">Critical {{ .SeverityBarGraph.Critical }}/{{ .SeverityBarGraph.Total }}</span>
         </div>
+         <div class="bar-container-vertical">
+            <meter class="bar finding-status" data-status="Resolved" value="{{ .SeverityBarGraph.Resolved }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Resolved: {{ .SeverityBarGraph.Resolved }} of {{ .SeverityBarGraph.Total }} findings"></meter>
+            <span class="label">Resolved {{ .SeverityBarGraph.Resolved }}/{{ .SeverityBarGraph.Total }}</span>
+        </div>
+        <!-- <div class="bar-container-vertical">
+            <meter class="bar finding-status" data-status="Unresolved" value="{{ .SeverityBarGraph.Unresolved }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Unresolved: {{ .SeverityBarGraph.Unresolved }} of {{ .SeverityBarGraph.Total }} findings"></meter>
+            <span class="label">Unresolved {{ .SeverityBarGraph.Unresolved }}/{{ .SeverityBarGraph.Total }}</span>
+        </div> -->
     </div>
+
     <div class="page-break"></div>
 </section>
 {{- end }}

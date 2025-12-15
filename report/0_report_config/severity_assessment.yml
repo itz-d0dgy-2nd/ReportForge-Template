@@ -37,7 +37,7 @@ Severities:
 # - Defines and controls the severity matrix layout in the reports severity assessment
 # - Defines and controls the severity names used in the findings markdown YAML front matter
 # - Severity names (Low, Medium, High, Critical) map to CSS classes for colour styling
-#   If these severity names change, you must update the corresponding CSS classes at LN:457 - LN:460 in template.css
+#   If these severity names change, you must update the corresponding CSS classes in template.css
 #   .finding-severity[data-severity="Low"] { background-color: #a5d63a; }
 #   .finding-severity[data-severity="Medium"] { background-color: #f2fa0c; }
 #   .finding-severity[data-severity="High"] { background-color: #faae0a; }
