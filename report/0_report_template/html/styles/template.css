@@ -102,12 +102,12 @@
     text-align: left;
 }
 
-.finding-status[data-status="Unresolved"] {
+.finding-status[data-status="Unresolved"], .suggestions-status[data-status="Unresolved"] {
     font-weight: bold;
     color: #ff0000;
 }
 
-.finding-status[data-status="Resolved"] {
+.finding-status[data-status="Resolved"], .suggestions-status[data-status="Resolved"] {
     font-weight: bold;
     color: #00a336;
 }
@@ -130,6 +130,12 @@
 
 .finding-severity[data-severity="Critical"] {
     background: #ff4a4a;
+}
+
+.finding-status[data-status="Resolved"]::-webkit-meter-optimum-value,
+.finding-status[data-status="Resolved"]::-webkit-meter-suboptimum-value,
+.finding-status[data-status="Resolved"]::-webkit-meter-even-less-good-value { 
+    background: #00a336;
 }
 
 .finding-severity[data-severity="Low"]::-webkit-meter-optimum-value,
@@ -362,6 +368,7 @@ retest_not_fixed {
 .execsum-section table,
 .techsum-section table,
 .table-of-findings-section table,
+.table-of-suggestions-section table,
 .findings-section table,
 .suggestions-section table {
     border-spacing: 1;
@@ -378,6 +385,7 @@ retest_not_fixed {
 .execsum-section table thead tr,
 .techsum-section table thead tr,
 .table-of-findings-section table thead tr,
+.table-of-suggestions-section table thead tr,
 .findings-section table thead tr,
 .suggestions-section table thead tr {
     height: 30pt;
@@ -388,6 +396,7 @@ retest_not_fixed {
 .execsum-section table thead tr th,
 .techsum-section table thead tr th,
 .table-of-findings-section table thead tr th,
+.table-of-suggestions-section table thead tr th,
 .findings-section table thead tr th,
 .suggestions-section table thead tr th {
     color: #fff;
@@ -399,6 +408,7 @@ retest_not_fixed {
 .execsum-section table tbody tr,
 .techsum-section table tbody tr,
 .table-of-findings-section table tbody tr,
+.table-of-suggestions-section table tbody tr,
 .findings-section table tbody tr,
 .suggestions-section table tbody tr {
     height: 30pt;
