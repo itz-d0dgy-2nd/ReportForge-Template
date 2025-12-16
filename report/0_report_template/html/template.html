@@ -318,7 +318,7 @@
     <h2>Severity Distribution</h2>
     <div class="bar-graph-vertical">
         {{- range .SeverityConfig.Severities }}
-        {{- $count := index $.SeverityBarGraph.SeverityCounts . }}
+        {{- $count := index $.SeverityBarGraph.Severities . }}
         <div class="bar-container-vertical">
             <meter class="bar finding-severity" data-severity="{{ . }}" value="{{ $count }}" max="{{ $.SeverityBarGraph.Total }}"  aria-label="{{ . }} severity: {{ $count }} of {{ $.SeverityBarGraph.Total }} findings"></meter>
             <span class="label">{{ . }} {{ $count }}/{{ $.SeverityBarGraph.Total }}</span>
