@@ -317,32 +317,19 @@
     
     <h2>Severity Distribution</h2>
     <div class="bar-graph-vertical">
+        {{- range .SeverityConfig.Severities }}
+        {{- $count := index $.SeverityBarGraph.SeverityCounts . }}
         <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="Low" value="{{ .SeverityBarGraph.Low }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Low severity: {{ .SeverityBarGraph.Low }} of {{ .SeverityBarGraph.Total }} findings"></meter>
-            <span class="label">Low {{ .SeverityBarGraph.Low }}/{{ .SeverityBarGraph.Total }}</span>
+            <meter class="bar finding-severity" data-severity="{{ . }}" value="{{ $count }}" max="{{ $.SeverityBarGraph.Total }}"  aria-label="{{ . }} severity: {{ $count }} of {{ $.SeverityBarGraph.Total }} findings"></meter>
+            <span class="label">{{ . }} {{ $count }}/{{ $.SeverityBarGraph.Total }}</span>
         </div>
+        {{- end }}
+        
         <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="Medium" value="{{ .SeverityBarGraph.Medium }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Medium severity: {{ .SeverityBarGraph.Medium }} of {{ .SeverityBarGraph.Total }} findings"></meter>
-            <span class="label">Medium {{ .SeverityBarGraph.Medium }}/{{ .SeverityBarGraph.Total }}</span>
-        </div>
-        <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="High" value="{{ .SeverityBarGraph.High }}" max="{{ .SeverityBarGraph.Total }}" aria-label="High severity: {{ .SeverityBarGraph.High }} of {{ .SeverityBarGraph.Total }} findings"></meter>
-            <span class="label">High {{ .SeverityBarGraph.High }}/{{ .SeverityBarGraph.Total }}</span>
-        </div>
-        <div class="bar-container-vertical">
-            <meter class="bar finding-severity" data-severity="Critical" value="{{ .SeverityBarGraph.Critical }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Critical severity: {{ .SeverityBarGraph.Critical }} of {{ .SeverityBarGraph.Total }} findings"></meter>
-            <span class="label">Critical {{ .SeverityBarGraph.Critical }}/{{ .SeverityBarGraph.Total }}</span>
-        </div>
-         <div class="bar-container-vertical">
             <meter class="bar finding-status" data-status="Resolved" value="{{ .SeverityBarGraph.Resolved }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Resolved: {{ .SeverityBarGraph.Resolved }} of {{ .SeverityBarGraph.Total }} findings"></meter>
             <span class="label">Resolved {{ .SeverityBarGraph.Resolved }}/{{ .SeverityBarGraph.Total }}</span>
         </div>
-        <!-- <div class="bar-container-vertical">
-            <meter class="bar finding-status" data-status="Unresolved" value="{{ .SeverityBarGraph.Unresolved }}" max="{{ .SeverityBarGraph.Total }}" aria-label="Unresolved: {{ .SeverityBarGraph.Unresolved }} of {{ .SeverityBarGraph.Total }} findings"></meter>
-            <span class="label">Unresolved {{ .SeverityBarGraph.Unresolved }}/{{ .SeverityBarGraph.Total }}</span>
-        </div> -->
     </div>
-
     <div class="page-break"></div>
 </section>
 {{- end }}
