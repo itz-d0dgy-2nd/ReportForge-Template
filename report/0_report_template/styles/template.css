@@ -1,3 +1,36 @@
+/* ======== CSS Custom Properties ======== */
+:root {
+    /* Brand Colors */
+    --color-primary-purple: #290d32;
+    --color-accent-light-purple: #c4a4f5;
+    --color-text-primary: #313131;
+    --color-text-secondary: #252525;
+    --color-text-heading: #000000;
+    --color-background-table-row: #f5f5f5;
+    --color-background-white: #ffffff;
+    --color-border-gray: #999;
+
+    /* Severity Colors */
+    --color-severity-3: #a5d63a;
+    --color-severity-2: #f2fa0c;
+    --color-severity-1: #faae0a;
+    --color-severity-0: #ff4a4a;
+    --color-status-resolved: #00a336;
+    --color-status-unresolved: #ff0000;
+
+    /* Retest Colors */
+    --color-retest-fixed-bg: #d8ebfd;
+    --color-retest-fixed-text: #33607a;
+    --color-retest-fixed-border: #5a9ed5;
+    --color-retest-not-fixed-bg: #E9D8FD;
+    --color-retest-not-fixed-text: #69337A;
+    --color-retest-not-fixed-border: #805AD5;
+
+    /* Dimensions */
+    --cell-size-standard: 67.5pt;
+    --spacing-standard: 12pt;
+}
+
 /* ======== Print Styles ======== */
 @media print {
     @page {
@@ -18,10 +51,14 @@
         }
     }
 
-    .table-of-contents-section a::after { 
-        content: leader(".") target-counter(attr(href), page);
+    @page landscape-A3 {
+        size: A3 landscape;
+        margin: 15mm;
     }
 
+    .table-of-contents-section a::after {
+        content: leader(".") target-counter(attr(href), page);
+    }
 }
 
 /* ======== Metadata Page ======== */
@@ -41,8 +78,8 @@
     top: 35%;
     left: 65%;
     transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
+    width: 450pt;
+    height: 450pt;
     z-index: 1;
 }
 
@@ -53,17 +90,18 @@
     left: 5%;
 }
 
-.metadata-section article h1, .metadata-section article h2 {
+.metadata-section article h1,
+.metadata-section article h2 {
     padding-bottom: 5pt;
     margin: 0;
-    color: #c4a4f5;
+    color: var(--color-accent-light-purple);
 }
 
 .metadata-section article table {
-    width: 55%;
+    width: 80%;
     margin-top: 30pt;
     display: inline-block;
-    color: #c4a4f5;
+    color: var(--color-accent-light-purple);
 }
 
 .metadata-section article table th,
@@ -97,73 +135,112 @@
     cursor: pointer;
 }
 
+/* ======== Summaries Section Tables ======== */
+.summaries-section table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: var(--color-background-white);
+    overflow: hidden;
+    width: 100%;
+    margin: var(--spacing-standard) auto;
+    position: relative;
+    text-align: center;
+}
+
+.summaries-section table thead tr {
+    height: 30pt;
+    background-color: var(--color-primary-purple);
+}
+
+.summaries-section table thead tr th {
+    color: var(--color-background-white);
+    font-weight: 400;
+    padding: 7.5pt;
+}
+
+.summaries-section table tbody tr {
+    height: 30pt;
+    background-color: var(--color-background-table-row);
+}
+
+.summaries-section table tbody tr td {
+    padding: 7.5pt;
+    color: var(--color-text-primary);
+}
+
+.summaries-section table tbody tr:nth-child(even) {
+    background-color: var(--color-background-white);
+}
+
 /* ======== Findings Assessments ======== */
 .finding-name {
     text-align: left;
 }
 
-.finding-status[data-status="Unresolved"], .suggestions-status[data-status="Unresolved"] {
+.finding-status[data-status="Unresolved"],
+.suggestions-status[data-status="Unresolved"] {
     font-weight: bold;
-    color: #ff0000;
+    color: var(--color-status-unresolved);
 }
 
-.finding-status[data-status="Resolved"], .suggestions-status[data-status="Resolved"] {
+.finding-status[data-status="Resolved"],
+.suggestions-status[data-status="Resolved"] {
     font-weight: bold;
-    color: #00a336;
+    color: var(--color-status-resolved);
 }
 
 .finding-status::-webkit-meter-bar {
     background: transparent !important;
 }
 
-.finding-severity::-webkit-meter-bar{
+.finding-severity::-webkit-meter-bar {
     background: transparent !important;
 }
 
 .finding-severity[data-severity="Low"] {
-    background: #a5d63a;
+    background: var(--color-severity-3);
 }
 
 .finding-severity[data-severity="Medium"] {
-    background: #f2fa0c;
+    background: var(--color-severity-2);
 }
 
 .finding-severity[data-severity="High"] {
-    background: #faae0a;
+    background: var(--color-severity-1);
 }
 
 .finding-severity[data-severity="Critical"] {
-    background: #ff4a4a;
+    background: var(--color-severity-0);
 }
 
 .finding-status[data-status="Resolved"]::-webkit-meter-optimum-value,
 .finding-status[data-status="Resolved"]::-webkit-meter-suboptimum-value,
-.finding-status[data-status="Resolved"]::-webkit-meter-even-less-good-value { 
-    background: #00a336;
+.finding-status[data-status="Resolved"]::-webkit-meter-even-less-good-value {
+    background: var(--color-status-resolved);
 }
 
 .finding-severity[data-severity="Low"]::-webkit-meter-optimum-value,
 .finding-severity[data-severity="Low"]::-webkit-meter-suboptimum-value,
-.finding-severity[data-severity="Low"]::-webkit-meter-even-less-good-value { 
-    background: #a5d63a;
+.finding-severity[data-severity="Low"]::-webkit-meter-even-less-good-value {
+    background: var(--color-severity-3);
 }
 
 .finding-severity[data-severity="Medium"]::-webkit-meter-optimum-value,
 .finding-severity[data-severity="Medium"]::-webkit-meter-suboptimum-value,
-.finding-severity[data-severity="Medium"]::-webkit-meter-even-less-good-value { 
-    background: #f2fa0c;
+.finding-severity[data-severity="Medium"]::-webkit-meter-even-less-good-value {
+    background: var(--color-severity-2);
 }
 
 .finding-severity[data-severity="High"]::-webkit-meter-optimum-value,
 .finding-severity[data-severity="High"]::-webkit-meter-suboptimum-value,
-.finding-severity[data-severity="High"]::-webkit-meter-even-less-good-value { 
-    background: #faae0a;
+.finding-severity[data-severity="High"]::-webkit-meter-even-less-good-value {
+    background: var(--color-severity-1);
 }
 
 .finding-severity[data-severity="Critical"]::-webkit-meter-optimum-value,
 .finding-severity[data-severity="Critical"]::-webkit-meter-suboptimum-value,
-.finding-severity[data-severity="Critical"]::-webkit-meter-even-less-good-value { 
-    background: #ff4a4a;
+.finding-severity[data-severity="Critical"]::-webkit-meter-even-less-good-value {
+    background: var(--color-severity-0);
 }
 
 /* ======== Global Styles ======== */
@@ -172,7 +249,6 @@
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: 300;
-    font-style: light;
     font-size: 11pt;
     line-height: 1.4;
 }
@@ -184,12 +260,11 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: "Exo 2", serif;
     font-weight: normal;
-    font-style: normal;
     text-align: left;
 }
 
 h1, h2, h3 {
-    margin: 12pt 0;
+    margin: var(--spacing-standard) 0;
 }
 
 h1 { font-size: 24pt; }
@@ -200,8 +275,8 @@ h5 { font-size: 9.96pt; }
 h6 { font-size: 8.04pt; }
 
 p {
-    margin: 12pt 0;
-    color: #313131;
+    margin: var(--spacing-standard) 0;
+    color: var(--color-text-primary);
 }
 
 mark {
@@ -210,20 +285,21 @@ mark {
 
 strong {
     font-weight: bold;
-    color: black;
+    color: var(--color-text-heading);
 }
 
 qa {
     background-color: fuchsia;
     padding: 1.5pt;
-    color: black;
+    color: var(--color-text-heading);
 }
 
 a[href^="#"] {
     text-decoration: none;
 }
 
-/* a[href^="#"]::after {
+/* TODO: Add internal link icon styling
+a[href^="#"]::after {
     position: absolute;
     content: "";
     display: inline-block;
@@ -232,7 +308,8 @@ a[href^="#"] {
     margin-left: 3pt;
     background-size: 100%;
     background-image: url("../images/internal-link.png");
-} */
+}
+*/
 
 a[href^="http"] {
     padding-right: 15pt;
@@ -252,7 +329,7 @@ a[href^="http"]::after {
 
 ul, ol {
     padding-left: 15pt;
-    margin: 12pt 0;
+    margin: var(--spacing-standard) 0;
 }
 
 ul {
@@ -265,7 +342,7 @@ ol {
 
 ul li, ol li {
     margin: 3.75pt 0;
-    color: #252525;
+    color: var(--color-text-secondary);
 }
 
 ul li ul {
@@ -273,7 +350,7 @@ ul li ul {
 }
 
 li::marker {
-    color: black;
+    color: var(--color-text-heading);
 }
 
 code {
@@ -284,7 +361,7 @@ code {
 
 pre {
     border-radius: 4.5pt;
-    margin: 12pt 0 !important;
+    margin: var(--spacing-standard) 0 !important;
 }
 
 .token.important {
@@ -302,26 +379,26 @@ blockquote {
     color: #555;
     border-left: 4pt solid #777;
     padding: 18.75pt;
-    margin: 12pt 0;
+    margin: var(--spacing-standard) 0;
 }
 
 retest_fixed {
-    background-color: #d8ebfd;
-    color: #33607a;
-    border-left: solid #5a9ed5 3pt;
+    background-color: var(--color-retest-fixed-bg);
+    color: var(--color-retest-fixed-text);
+    border-left: solid var(--color-retest-fixed-border) 3pt;
     border-radius: 3pt;
-    padding: 0.7em;
-    margin: 12pt 0;
+    padding: 7.7pt;
+    margin: var(--spacing-standard) 0;
     display: block;
 }
 
 retest_not_fixed {
-    background-color: #E9D8FD;
-    color: #69337A;
-    border-left: solid #805AD5 3pt;
+    background-color: var(--color-retest-not-fixed-bg);
+    color: var(--color-retest-not-fixed-text);
+    border-left: solid var(--color-retest-not-fixed-border) 3pt;
     border-radius: 3pt;
-    padding: 0.7em;
-    margin: 12pt 0;
+    padding: 7.7pt;
+    margin: var(--spacing-standard) 0;
     display: block;
 }
 
@@ -348,9 +425,9 @@ retest_not_fixed {
 .skip-link {
     position: absolute;
     clip: rect(1px, 1px, 1px, 1px);
-    padding: 8px 16px;
-    background: #000000;
-    color: #ffffff;
+    padding: 6pt 12pt;
+    background: var(--color-text-heading);
+    color: var(--color-background-white);
     text-decoration: none;
     z-index: 9999;
     font-weight: bold;
@@ -359,15 +436,14 @@ retest_not_fixed {
 .skip-link:focus,
 .skip-link:active {
     clip: auto;
-    top: 6px;
-    left: 6px;
-    outline: 2px solid #ffffff;
-    outline-offset: 2px;
+    top: 4.5pt;
+    left: 4.5pt;
+    outline: 1.5pt solid var(--color-background-white);
+    outline-offset: 1.5pt;
 }
 
-
 /* ======== Shared Table Styles ======== */
-/* Used by: Document Information, ExecSum, TechSum, Table of Findings, Findings, Suggestions */
+/* Base styles for: Document Information, ExecSum, TechSum, Table of Findings, Findings, Suggestions */
 .document-information-section table,
 .execsum-section table,
 .techsum-section table,
@@ -377,7 +453,7 @@ retest_not_fixed {
 .suggestions-section table {
     border-spacing: 1;
     border-collapse: collapse;
-    background: white;
+    background: var(--color-background-white);
     overflow: hidden;
     width: 100%;
     margin: 0 auto;
@@ -393,7 +469,7 @@ retest_not_fixed {
 .findings-section table thead tr,
 .suggestions-section table thead tr {
     height: 30pt;
-    background-color: #290d32;
+    background-color: var(--color-primary-purple);
 }
 
 .document-information-section table thead tr th,
@@ -403,9 +479,8 @@ retest_not_fixed {
 .table-of-suggestions-section table thead tr th,
 .findings-section table thead tr th,
 .suggestions-section table thead tr th {
-    color: #fff;
+    color: var(--color-background-white);
     font-weight: 400;
-    font-style: light;
 }
 
 .document-information-section table tbody tr,
@@ -416,9 +491,14 @@ retest_not_fixed {
 .findings-section table tbody tr,
 .suggestions-section table tbody tr {
     height: 30pt;
-    background-color: #f5f5f5;
+    background-color: var(--color-background-table-row);
 }
 
-/* .summaries-section h1, .findings-section h1, .risk-section h1, .suggestions-section h1, .appendices-section h1 {
+/* TODO: Consider hiding section titles
+.summaries-section h1,
+.findings-section h1,
+.suggestions-section h1,
+.appendices-section h1 {
     display: none;
-} */
+}
+*/
